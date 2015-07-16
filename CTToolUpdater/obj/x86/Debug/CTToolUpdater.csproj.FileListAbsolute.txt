@@ -1,9 +1,0 @@
-F:\project\playuavosd\tool\osdconfig\bin\Debug\CTToolUpdater.exe
-F:\project\playuavosd\tool\osdconfig\bin\Debug\CTToolUpdater.pdb
-F:\project\playuavosd\tool\osdconfig\CTToolUpdater\obj\x86\Debug\CTToolUpdater.exe
-F:\project\playuavosd\tool\osdconfig\CTToolUpdater\obj\x86\Debug\CTToolUpdater.pdb
-E:\project\playuavosd\tool\osdconfig\bin\Debug\CTToolUpdater.exe
-E:\project\playuavosd\tool\osdconfig\bin\Debug\CTToolUpdater.pdb
-E:\project\playuavosd\tool\osdconfig\CTToolUpdater\obj\x86\Debug\CTToolUpdater.csprojResolveAssemblyReference.cache
-E:\project\playuavosd\tool\osdconfig\CTToolUpdater\obj\x86\Debug\CTToolUpdater.exe
-E:\project\playuavosd\tool\osdconfig\CTToolUpdater\obj\x86\Debug\CTToolUpdater.pdb
