@@ -1522,6 +1522,7 @@ namespace OSD
 
         private void Save_To_OSD_Click(object sender, EventArgs e)
         {
+            string strTemp = "";
             try
             {
 
@@ -1545,6 +1546,7 @@ namespace OSD
                 self.__sync();
 
                 //get the board version first
+                strTemp = comPort.ReadExisting();   //clear the buffer
                 self.osd_rev = self.__getInfo(Code.INFO_OSD_REV);
 
                 //not matched, send the default params to EEPROM
@@ -1554,13 +1556,16 @@ namespace OSD
                 }
 
                 //begin to write params
+                strTemp = comPort.ReadExisting();   //clear the buffer
                 __send(new byte[] { (byte)Code.START_TRANSFER, (byte)Code.EOC });
                 __getSync();
                 List<byte[]> groups = self.__split_len(eeprom, (byte)Code.PROG_MULTI_MAX);
                 foreach (Byte[] bytes in groups)
                 {
+                    strTemp = comPort.ReadExisting();   //clear the buffer
                     self.__set_parameters(bytes);
                 }
+                strTemp = comPort.ReadExisting();   //clear the buffer
                 __send(new byte[] { (byte)Code.END_TRANSFER, (byte)Code.EOC });
                 __getSync();
 
@@ -1578,6 +1583,7 @@ namespace OSD
 
         private void Sav_To_EEPROM_Click(object sender, EventArgs e)
         {
+            string strTemp = "";
             try
             {
 
@@ -1601,6 +1607,7 @@ namespace OSD
                 self.__sync();
 
                 //get the board version first
+                strTemp = comPort.ReadExisting();   //clear the buffer
                 self.osd_rev = self.__getInfo(Code.INFO_OSD_REV);
 
                 //not matched, send the default params to EEPROM
@@ -1610,17 +1617,21 @@ namespace OSD
                 }
 
                 //begin to write params
+                strTemp = comPort.ReadExisting();   //clear the buffer
                 __send(new byte[] { (byte)Code.START_TRANSFER, (byte)Code.EOC });
                 __getSync();
                 List<byte[]> groups = self.__split_len(eeprom, (byte)Code.PROG_MULTI_MAX);
                 foreach (Byte[] bytes in groups)
                 {
+                    strTemp = comPort.ReadExisting();   //clear the buffer
                     self.__set_parameters(bytes);
                 }
+                strTemp = comPort.ReadExisting();   //clear the buffer
                 __send(new byte[] { (byte)Code.END_TRANSFER, (byte)Code.EOC });
                 __getSync();
 
                 //send command
+                strTemp = comPort.ReadExisting();   //clear the buffer
                 __send(new byte[] { (byte)Code.SAVE_TO_EEPROM, (byte)Code.EOC });
                 __getSync();
 
