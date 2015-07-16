@@ -28,5 +28,5 @@ tool/osdconfig/CTToolUpdater/obj/*
 tool/osdconfig/bin/Release/*
 tool/osdconfig/bin/Debug/*
 *.application
-*.manifest
+#*.manifest
 *.pdb
