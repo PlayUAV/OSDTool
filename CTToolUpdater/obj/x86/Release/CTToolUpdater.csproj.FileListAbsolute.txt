@@ -1,0 +1,5 @@
+F:\project\playuavosd\tool\osdconfig\bin\Release\CTToolUpdater.exe
+F:\project\playuavosd\tool\osdconfig\bin\Release\CTToolUpdater.pdb
+F:\project\playuavosd\tool\osdconfig\CTToolUpdater\obj\x86\Release\CTToolUpdater.csprojResolveAssemblyReference.cache
+F:\project\playuavosd\tool\osdconfig\CTToolUpdater\obj\x86\Release\CTToolUpdater.exe
+F:\project\playuavosd\tool\osdconfig\CTToolUpdater\obj\x86\Release\CTToolUpdater.pdb
