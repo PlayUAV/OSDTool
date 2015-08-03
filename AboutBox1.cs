@@ -104,9 +104,9 @@ namespace OSD
         {
             try
             {
-                System.Diagnostics.Process.Start("http://www.playuav.com/");
+                System.Diagnostics.Process.Start("http://en.playuav.com/");
             }
-            catch { CustomMessageBox.Show("Can not open url http://www.playuav.com/", Strings.ERROR); }
+            catch { CustomMessageBox.Show("Can not open url http://en.playuav.com/", Strings.ERROR); }
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)

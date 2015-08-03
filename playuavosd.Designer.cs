@@ -45,20 +45,18 @@
             this.Sav_To_EEPROM = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveOSDFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openOSDFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveOSDFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.loadDefaultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadCustomFirmwareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.englishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chineseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gettingStartedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.glControl1 = new OpenTK.GLControl();
             this.labPanle = new System.Windows.Forms.Label();
             this.lab_inc = new System.Windows.Forms.Label();
@@ -67,7 +65,8 @@
             this.lbl_fc = new System.Windows.Forms.Label();
             this.cbx_fc = new System.Windows.Forms.ComboBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.loadCustomFirmwareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.linkLabelwiki = new System.Windows.Forms.LinkLabel();
+            this.linkLabelHome = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.Params)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -97,7 +96,7 @@
             this.Params.RootKeyValueString = "";
             this.Params.RowHeight = 26;
             this.Params.ShowGroups = false;
-            this.Params.Size = new System.Drawing.Size(500, 426);
+            this.Params.Size = new System.Drawing.Size(500, 511);
             this.Params.TabIndex = 80;
             this.Params.UseAlternatingBackColors = true;
             this.Params.UseCompatibleStateImageBehavior = false;
@@ -162,7 +161,7 @@
             // btn_up_fw
             // 
             this.btn_up_fw.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_up_fw.Location = new System.Drawing.Point(753, 491);
+            this.btn_up_fw.Location = new System.Drawing.Point(753, 576);
             this.btn_up_fw.Name = "btn_up_fw";
             this.btn_up_fw.Size = new System.Drawing.Size(133, 22);
             this.btn_up_fw.TabIndex = 82;
@@ -175,7 +174,7 @@
             this.progress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.progress.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.progress.Location = new System.Drawing.Point(3, 492);
+            this.progress.Location = new System.Drawing.Point(3, 577);
             this.progress.Name = "progress";
             this.progress.Size = new System.Drawing.Size(744, 21);
             this.progress.Step = 1;
@@ -186,7 +185,7 @@
             this.lbl_status.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbl_status.AutoSize = true;
             this.lbl_status.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lbl_status.Location = new System.Drawing.Point(1, 516);
+            this.lbl_status.Location = new System.Drawing.Point(1, 601);
             this.lbl_status.Name = "lbl_status";
             this.lbl_status.Size = new System.Drawing.Size(41, 12);
             this.lbl_status.TabIndex = 84;
@@ -232,8 +231,7 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.optionsToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.optionsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(898, 25);
@@ -254,19 +252,19 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(39, 21);
             this.fileToolStripMenuItem.Text = "File";
             // 
-            // saveOSDFileToolStripMenuItem
-            // 
-            this.saveOSDFileToolStripMenuItem.Name = "saveOSDFileToolStripMenuItem";
-            this.saveOSDFileToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-            this.saveOSDFileToolStripMenuItem.Text = "Save OSD file...";
-            this.saveOSDFileToolStripMenuItem.Click += new System.EventHandler(this.saveOSDFileToolStripMenuItem_Click);
-            // 
             // openOSDFileToolStripMenuItem
             // 
             this.openOSDFileToolStripMenuItem.Name = "openOSDFileToolStripMenuItem";
             this.openOSDFileToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
             this.openOSDFileToolStripMenuItem.Text = "Open OSD file...";
             this.openOSDFileToolStripMenuItem.Click += new System.EventHandler(this.openOSDFileToolStripMenuItem_Click);
+            // 
+            // saveOSDFileToolStripMenuItem
+            // 
+            this.saveOSDFileToolStripMenuItem.Name = "saveOSDFileToolStripMenuItem";
+            this.saveOSDFileToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.saveOSDFileToolStripMenuItem.Text = "Save OSD file...";
+            this.saveOSDFileToolStripMenuItem.Click += new System.EventHandler(this.saveOSDFileToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -279,6 +277,13 @@
             this.loadDefaultsToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
             this.loadDefaultsToolStripMenuItem.Text = "Load Defaults";
             this.loadDefaultsToolStripMenuItem.Click += new System.EventHandler(this.loadDefaultsToolStripMenuItem_Click);
+            // 
+            // loadCustomFirmwareToolStripMenuItem
+            // 
+            this.loadCustomFirmwareToolStripMenuItem.Name = "loadCustomFirmwareToolStripMenuItem";
+            this.loadCustomFirmwareToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.loadCustomFirmwareToolStripMenuItem.Text = "Load custom firmware...";
+            this.loadCustomFirmwareToolStripMenuItem.Click += new System.EventHandler(this.loadCustomFirmwareToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -295,7 +300,8 @@
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.languageToolStripMenuItem});
+            this.languageToolStripMenuItem,
+            this.checkToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(66, 21);
             this.optionsToolStripMenuItem.Text = "Options";
@@ -306,7 +312,7 @@
             this.englishToolStripMenuItem,
             this.chineseToolStripMenuItem});
             this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
-            this.languageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.languageToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.languageToolStripMenuItem.Text = "Language";
             // 
             // englishToolStripMenuItem
@@ -325,36 +331,12 @@
             this.chineseToolStripMenuItem.Text = "Chinese";
             this.chineseToolStripMenuItem.Click += new System.EventHandler(this.chineseToolStripMenuItem_Click);
             // 
-            // helpToolStripMenuItem
+            // checkToolStripMenuItem
             // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.gettingStartedToolStripMenuItem,
-            this.checkUpdatesToolStripMenuItem,
-            this.aboutToolStripMenuItem});
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(47, 21);
-            this.helpToolStripMenuItem.Text = "Help";
-            // 
-            // gettingStartedToolStripMenuItem
-            // 
-            this.gettingStartedToolStripMenuItem.Name = "gettingStartedToolStripMenuItem";
-            this.gettingStartedToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.gettingStartedToolStripMenuItem.Text = "Getting started";
-            this.gettingStartedToolStripMenuItem.Click += new System.EventHandler(this.gettingStartedToolStripMenuItem_Click);
-            // 
-            // checkUpdatesToolStripMenuItem
-            // 
-            this.checkUpdatesToolStripMenuItem.Name = "checkUpdatesToolStripMenuItem";
-            this.checkUpdatesToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.checkUpdatesToolStripMenuItem.Text = "Check Updates";
-            this.checkUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkUpdatesToolStripMenuItem_Click);
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.checkToolStripMenuItem.Name = "checkToolStripMenuItem";
+            this.checkToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.checkToolStripMenuItem.Text = "Check Updates";
+            this.checkToolStripMenuItem.Click += new System.EventHandler(this.checkToolStripMenuItem_Click);
             // 
             // glControl1
             // 
@@ -448,18 +430,39 @@
             this.timer1.Interval = 5000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // loadCustomFirmwareToolStripMenuItem
+            // linkLabelwiki
             // 
-            this.loadCustomFirmwareToolStripMenuItem.Name = "loadCustomFirmwareToolStripMenuItem";
-            this.loadCustomFirmwareToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-            this.loadCustomFirmwareToolStripMenuItem.Text = "Load custom firmware...";
-            this.loadCustomFirmwareToolStripMenuItem.Click += new System.EventHandler(this.loadCustomFirmwareToolStripMenuItem_Click);
+            this.linkLabelwiki.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabelwiki.AutoSize = true;
+            this.linkLabelwiki.Font = new System.Drawing.Font("新宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linkLabelwiki.Location = new System.Drawing.Point(550, 489);
+            this.linkLabelwiki.Name = "linkLabelwiki";
+            this.linkLabelwiki.Size = new System.Drawing.Size(53, 19);
+            this.linkLabelwiki.TabIndex = 101;
+            this.linkLabelwiki.TabStop = true;
+            this.linkLabelwiki.Text = "Wiki";
+            this.linkLabelwiki.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // linkLabelHome
+            // 
+            this.linkLabelHome.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabelHome.AutoSize = true;
+            this.linkLabelHome.Font = new System.Drawing.Font("新宋体", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linkLabelHome.Location = new System.Drawing.Point(550, 519);
+            this.linkLabelHome.Name = "linkLabelHome";
+            this.linkLabelHome.Size = new System.Drawing.Size(86, 19);
+            this.linkLabelHome.TabIndex = 102;
+            this.linkLabelHome.TabStop = true;
+            this.linkLabelHome.Text = "Support";
+            this.linkLabelHome.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
             // 
             // PlayuavOSD
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(898, 543);
+            this.ClientSize = new System.Drawing.Size(898, 628);
+            this.Controls.Add(this.linkLabelHome);
+            this.Controls.Add(this.linkLabelwiki);
             this.Controls.Add(this.cbx_fc);
             this.Controls.Add(this.lbl_fc);
             this.Controls.Add(this.lbl_port);
@@ -519,10 +522,6 @@
         private System.Windows.Forms.ToolStripMenuItem languageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem englishToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem chineseToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem gettingStartedToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem checkUpdatesToolStripMenuItem;
         private OpenTK.GLControl glControl1;
         private System.Windows.Forms.Label labPanle;
         private System.Windows.Forms.Label lab_inc;
@@ -532,5 +531,8 @@
         private System.Windows.Forms.ComboBox cbx_fc;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolStripMenuItem loadCustomFirmwareToolStripMenuItem;
+        private System.Windows.Forms.LinkLabel linkLabelwiki;
+        private System.Windows.Forms.LinkLabel linkLabelHome;
+        private System.Windows.Forms.ToolStripMenuItem checkToolStripMenuItem;
     }
 }

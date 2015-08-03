@@ -33,9 +33,9 @@ namespace OSD
         byte[] paramdefault = new byte[1024];
 
         PlayuavOSD self;
-        string currentVersion = "1.0.0.6";
+        string currentVersion = "1.0.0.7";
         bool bCheckUpdateStartup = false;
-        short firmwareVesion = 5;
+        short firmwareVesion = 6;
 
         // Changes made to the params between writing to the copter
         readonly Hashtable _changes = new Hashtable();
@@ -981,6 +981,8 @@ namespace OSD
             _paramsAddr["Misc_Firmware_ver"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["Misc_Firmware_ver"], firmwareVesion);
 
+            _paramsAddr["Misc_Video_Mode"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Misc_Video_Mode"], 1);
         }
 
         internal PlayuavOSD.data genChildData(string root, string name, string value, string unit, string range, string desc)
@@ -1046,8 +1048,9 @@ namespace OSD
             dataMisc.desc = lang.getLangStr("Misc");
             dataMisc.children.Add(genChildData(dataMisc.paramname, "Units_Mode", getU16ParamString(eeprom, (int)_paramsAddr["Misc_Units_Mode"]), "", "0, 1", lang.getLangStr("Misc_Units_Mode")));
             dataMisc.children.Add(genChildData(dataMisc.paramname, "Max_Panels", getU16ParamString(eeprom, (int)_paramsAddr["Misc_Max_Panels"]), "", ">=1", lang.getLangStr("Misc_Max_Panels")));
-            dataMisc.children.Add(genChildData(dataMisc.paramname, "Start_Row", getU16ParamString(eeprom, (int)_paramsAddr["Misc_Start_Row"]), "", "", lang.getLangStr("Misc_Start_Row")));
-            dataMisc.children.Add(genChildData(dataMisc.paramname, "Start_Col", getU16ParamString(eeprom, (int)_paramsAddr["Misc_Start_Col"]), "", "", lang.getLangStr("Misc_Start_Col")));
+            dataMisc.children.Add(genChildData(dataMisc.paramname, "Start_Row", getU16ParamString(eeprom, (int)_paramsAddr["Misc_Start_Row"]), "", "-20 - +20", lang.getLangStr("Misc_Start_Row")));
+            dataMisc.children.Add(genChildData(dataMisc.paramname, "Start_Col", getU16ParamString(eeprom, (int)_paramsAddr["Misc_Start_Col"]), "", "-20 - +20", lang.getLangStr("Misc_Start_Col")));
+            dataMisc.children.Add(genChildData(dataMisc.paramname, "Video_Mode", getU16ParamString(eeprom, (int)_paramsAddr["Misc_Video_Mode"]), "", "0, 1", lang.getLangStr("Misc_Video_Mode")));
             roots.Add(dataMisc);
 
             data dataPWM = new PlayuavOSD.data();
@@ -1865,10 +1868,9 @@ namespace OSD
             this.languageToolStripMenuItem.Text = lang.getLangStr("menu_opt_lang");
             this.englishToolStripMenuItem.Text = lang.getLangStr("menu_opt_lang_en");
             this.chineseToolStripMenuItem.Text = lang.getLangStr("menu_opt_lang_zh");
-            this.helpToolStripMenuItem.Text = lang.getLangStr("menu_opt_help");
-            this.gettingStartedToolStripMenuItem.Text = lang.getLangStr("menu_opt_help_Manual");
-            this.checkUpdatesToolStripMenuItem.Text = lang.getLangStr("menu_opt_help_update");
-            this.aboutToolStripMenuItem.Text = lang.getLangStr("menu_opt_help_about");
+            this.checkToolStripMenuItem.Text = lang.getLangStr("menu_opt_help_update");
+            this.linkLabelwiki.Text = lang.getLangStr("menu_opt_help_Manual");
+            this.linkLabelHome.Text = lang.getLangStr("menu_opt_help_about");
             this.Params.Columns[0].Text = lang.getLangStr("List_col0");
             this.Params.Columns[1].Text = lang.getLangStr("List_col1");
             this.Params.Columns[2].Text = lang.getLangStr("List_col2");
@@ -1896,7 +1898,7 @@ namespace OSD
 
         private void gettingStartedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string strURL = "http://www.playuav.com/download/Playuavosd/playuavosd_en.pdf";
+            string strURL = "http://www.playuav.com/wiki/doku.php?id=projects:playuavosd:start";
             if (PlayuavOSD.langid == PlayuavOSD.LanguageEnum.LANG_ZH)
             {
                 strURL = "http://www.playuav.com/download/Playuavosd/playuavosd_zh.pdf";
@@ -2569,6 +2571,40 @@ namespace OSD
 
                 fw.UploadFlash(comPortName, fd.FileName, boardtype);
             }
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string strURL = "http://www.playuav.com/wiki/doku.php?id=projects:playuavosd:start";
+            if (PlayuavOSD.langid == PlayuavOSD.LanguageEnum.LANG_ZH)
+            {
+                strURL = "http://www.playuav.com/download/Playuavosd/playuavosd_zh.pdf";
+            }
+
+            try
+            {
+                System.Diagnostics.Process.Start(strURL);
+            }
+            catch { CustomMessageBox.Show("Can not open the online manual", Strings.ERROR); }
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string strURL = "http://en.playuav.com";
+            if (PlayuavOSD.langid == PlayuavOSD.LanguageEnum.LANG_ZH)
+            {
+                strURL = "http://www.playuav.com";
+            }
+            try
+            {
+                System.Diagnostics.Process.Start(strURL);
+            }
+            catch { CustomMessageBox.Show("Can not open Playuav website", Strings.ERROR); }
+        }
+
+        private void checkToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CheckNewVersion();
         }
     }
 }

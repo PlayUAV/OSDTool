@@ -52,9 +52,11 @@ namespace CTToolUpdater
             try
             {
                 StreamReader sr = new StreamReader(localDestnDir + "filelist.txt");
-                while (sr.ReadLine() != null)
+                string strfilename = sr.ReadLine();
+                while (strfilename != null)
                 {
-                    downloadFiles.Add(sr.ReadLine());
+                    downloadFiles.Add(strfilename);
+                    strfilename = sr.ReadLine();
                 }
                 sr.Close();
 
@@ -134,7 +136,11 @@ namespace CTToolUpdater
                 // is thrown at some point
                 if (response != null) response.Close();
                 if (remoteStream != null) remoteStream.Close();
-                if (localStream != null) localStream.Close();
+                if (localStream != null)
+                {
+                    localStream.Flush();
+                    localStream.Close();
+                }
             }
 
             // Return total bytes processed to caller.

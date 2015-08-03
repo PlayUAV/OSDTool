@@ -108,14 +108,14 @@ namespace OSD
             _langdspen["menu_opt_help"] = "Help";
             _langdspzh["menu_opt_help"] = "帮助";
 
-            _langdspen["menu_opt_help_Manual"] = "Getting started";
-            _langdspzh["menu_opt_help_Manual"] = "帮助文档";
+            _langdspen["menu_opt_help_Manual"] = "Wiki";
+            _langdspzh["menu_opt_help_Manual"] = "文档";
 
             _langdspen["menu_opt_help_update"] = "Check updates";
             _langdspzh["menu_opt_help_update"] = "检查更新";
 
-            _langdspen["menu_opt_help_about"] = "About";
-            _langdspzh["menu_opt_help_about"] = "关于";
+            _langdspen["menu_opt_help_about"] = "Support";
+            _langdspzh["menu_opt_help_about"] = "帮助";
 
             //these are common
             _langdspen["enable"] = "0:disable, 1:enable";
@@ -337,6 +337,9 @@ namespace OSD
 
             _langdspen["CT_upgrade"] = "The config tool is up to date!";
             _langdspzh["CT_upgrade"] = "配置工具已是最新!";
+
+            _langdspen["Misc_Video_Mode"] = "Video Mode.0：NTSC  1：PAL. Should keep same with the camera. After changing, save to flash and reset the board ";
+            _langdspzh["Misc_Video_Mode"] = "视频制式，0：NTSC  1：PAL. 应与摄像头保持一致. 修改之后保存到flash然后重启板子";
         }
     }
 }
