@@ -35,8 +35,8 @@ namespace OSD
             _langdspen["lab_port"] = "Port:";
             _langdspzh["lab_port"] = "端口：";
 
-            _langdspen["lab_fc"] = "FlightControl:";
-            _langdspzh["lab_fc"] = "飞控类型：";
+            _langdspen["lab_fc"] = "FC Protocol:";
+            _langdspzh["lab_fc"] = "TODO：";
 
             _langdspen["Load_from_OSD"] = "Read params";
             _langdspzh["Load_from_OSD"] = "读取参数";

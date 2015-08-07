@@ -937,8 +937,8 @@ namespace OSD
             _paramsAddr["RSSI_Raw_Enable"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["RSSI_Raw_Enable"], 0);
 
-            _paramsAddr["FC_Type"] = address; address += 2;
-            u16toEPPROM(paramdefault, (int)_paramsAddr["FC_Type"], 0);
+            _paramsAddr["FC_Protocol"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["FC_Protocol"], 0);
 
             //wind speed & direction
             _paramsAddr["Wind_Enable"] = address; address += 2;
@@ -1017,7 +1017,7 @@ namespace OSD
                 return false;
             };
 
-            this.cbx_fc.SelectedIndex = getU16Param(eeprom, (int)_paramsAddr["FC_Type"]);
+            this.cbx_fc.SelectedIndex = getU16Param(eeprom, (int)_paramsAddr["FC_Protocol"]);
 
             Params.ChildrenGetter = delegate(object x)
             {
@@ -2548,7 +2548,7 @@ namespace OSD
 
         private void cbx_fc_SelectedIndexChanged(object sender, EventArgs e)
         {
-            u16toEPPROM(eeprom, (int)_paramsAddr["FC_Type"], Convert.ToInt16(this.cbx_fc.SelectedIndex));
+            u16toEPPROM(eeprom, (int)_paramsAddr["FC_Protocol"], Convert.ToInt16(this.cbx_fc.SelectedIndex));
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
