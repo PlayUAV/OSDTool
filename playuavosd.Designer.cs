@@ -409,7 +409,7 @@
             this.lbl_fc.Name = "lbl_fc";
             this.lbl_fc.Size = new System.Drawing.Size(83, 12);
             this.lbl_fc.TabIndex = 98;
-            this.lbl_fc.Text = "FlightControl";
+            this.lbl_fc.Text = "FC Protocol";
             this.lbl_fc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // cbx_fc
@@ -417,8 +417,8 @@
             this.cbx_fc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbx_fc.FormattingEnabled = true;
             this.cbx_fc.Items.AddRange(new object[] {
-            "APM/Pixhawk",
-            "CC3D/Revo"});
+            "Mavlink",
+            "UAVTalk"});
             this.cbx_fc.Location = new System.Drawing.Point(623, 404);
             this.cbx_fc.Name = "cbx_fc";
             this.cbx_fc.Size = new System.Drawing.Size(91, 20);

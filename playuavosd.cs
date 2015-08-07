@@ -601,6 +601,8 @@ namespace OSD
             u16toEPPROM(paramdefault, (int)_paramsAddr["BatteryConsumed_Font_Size"], 0);
             _paramsAddr["BatteryConsumed_H_Alignment"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["BatteryConsumed_H_Alignment"], 2);
+            _paramsAddr["BatteryConsumed_Mah"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["BatteryConsumed_Mah"], 0);
 
             _paramsAddr["FlightMode_Enable"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["FlightMode_Enable"], 1);
@@ -935,8 +937,8 @@ namespace OSD
             _paramsAddr["RSSI_Raw_Enable"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["RSSI_Raw_Enable"], 0);
 
-            _paramsAddr["FC_Type"] = address; address += 2;
-            u16toEPPROM(paramdefault, (int)_paramsAddr["FC_Type"], 0);
+            _paramsAddr["FC_Protocol"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["FC_Protocol"], 0);
 
             //wind speed & direction
             _paramsAddr["Wind_Enable"] = address; address += 2;
@@ -1015,7 +1017,7 @@ namespace OSD
                 return false;
             };
 
-            this.cbx_fc.SelectedIndex = getU16Param(eeprom, (int)_paramsAddr["FC_Type"]);
+            this.cbx_fc.SelectedIndex = getU16Param(eeprom, (int)_paramsAddr["FC_Protocol"]);
 
             Params.ChildrenGetter = delegate(object x)
             {
@@ -1106,6 +1108,7 @@ namespace OSD
             dataBattConsumed.children.Add(genChildData(dataBattConsumed.paramname, "V_Position", getU16ParamString(eeprom, (int)_paramsAddr["BatteryConsumed_V_Position"]), "", "0 - 230", lang.getLangStr("vpos")));
             dataBattConsumed.children.Add(genChildData(dataBattConsumed.paramname, "Font_Size", getU16ParamString(eeprom, (int)_paramsAddr["BatteryConsumed_Font_Size"]), "", "0, 1, 2", lang.getLangStr("font")));
             dataBattConsumed.children.Add(genChildData(dataBattConsumed.paramname, "H_Alignment", getU16ParamString(eeprom, (int)_paramsAddr["BatteryConsumed_H_Alignment"]), "", "0, 1, 2", lang.getLangStr("halign")));
+            dataBattConsumed.children.Add(genChildData(dataBattConsumed.paramname, "Mah", getU16ParamString(eeprom, (int)_paramsAddr["BatteryConsumed_Mah"]), "", "0, 1", lang.getLangStr("BatteryConsumedInMah")));
             roots.Add(dataBattConsumed);
 
             data dataFlightMode = new PlayuavOSD.data();
@@ -2157,14 +2160,24 @@ namespace OSD
             //battery remaining
             ien = getU16Param(eeprom, (int)_paramsAddr["BatteryConsumed_Enable"]);
             ipanel = getU16Param(eeprom, (int)_paramsAddr["BatteryConsumed_Panel"]);
+            short inMah = getU16Param(eeprom, (int)_paramsAddr["BatteryConsumed_Mah"]);
             if (bShownAtPanle(ipanel, curPanel) && ien == 1)
             {
                 iposX = getU16Param(eeprom, (int)_paramsAddr["BatteryConsumed_H_Position"]);
                 iposY = getU16Param(eeprom, (int)_paramsAddr["BatteryConsumed_V_Position"]);
                 ifont = getU16Param(eeprom, (int)_paramsAddr["BatteryConsumed_Font_Size"]);
                 ifontalign = getU16Param(eeprom, (int)_paramsAddr["BatteryConsumed_H_Alignment"]);
-                strOffset = ogl.calstring("99%", font, SIZE_TO_FONT[ifont], whiteBrush, ifontalign);
-                ogl.drawstring("99%", font, SIZE_TO_FONT[ifont], whiteBrush, iposX - strOffset, iposY);
+                if (inMah == 0)
+                {
+                    strOffset = ogl.calstring("99%", font, SIZE_TO_FONT[ifont], whiteBrush, ifontalign);
+                    ogl.drawstring("99%", font, SIZE_TO_FONT[ifont], whiteBrush, iposX - strOffset, iposY);
+                } else
+                {
+                    strOffset = ogl.calstring("99mAh", font, SIZE_TO_FONT[ifont], whiteBrush, ifontalign);
+                    ogl.drawstring("99mAh", font, SIZE_TO_FONT[ifont], whiteBrush, iposX - strOffset, iposY);
+                }
+                
+                
             }
 
             //Arm state
@@ -2535,7 +2548,7 @@ namespace OSD
 
         private void cbx_fc_SelectedIndexChanged(object sender, EventArgs e)
         {
-            u16toEPPROM(eeprom, (int)_paramsAddr["FC_Type"], Convert.ToInt16(this.cbx_fc.SelectedIndex));
+            u16toEPPROM(eeprom, (int)_paramsAddr["FC_Protocol"], Convert.ToInt16(this.cbx_fc.SelectedIndex));
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
