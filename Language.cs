@@ -188,6 +188,9 @@ namespace OSD
             _langdspen["BatteryConsumed"] = "Battery remaining";
             _langdspzh["BatteryConsumed"] = "剩余电量，百分比";
 
+            _langdspen["BatteryConsumedinMah"] = "0 for battery consumption in %, 1 for battery consumption in mAh";
+            _langdspzh["BatteryConsumed"] = "TODO";
+
             _langdspen["FlightMode"] = "";
             _langdspzh["FlightMode"] = "飞行模式";
 
