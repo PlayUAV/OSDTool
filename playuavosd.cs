@@ -33,9 +33,9 @@ namespace OSD
         byte[] paramdefault = new byte[1024];
 
         PlayuavOSD self;
-        string currentVersion = "1.0.0.7";
+        string currentVersion = "1.0.0.8";
         bool bCheckUpdateStartup = false;
-        short firmwareVesion = 6;
+        short firmwareVesion = 7;
 
         // Changes made to the params between writing to the copter
         readonly Hashtable _changes = new Hashtable();
@@ -557,7 +557,7 @@ namespace OSD
             _paramsAddr["ArmState_H_Position"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["ArmState_H_Position"], 350);
             _paramsAddr["ArmState_V_Position"] = address; address += 2;
-            u16toEPPROM(paramdefault, (int)_paramsAddr["ArmState_V_Position"], 34);
+            u16toEPPROM(paramdefault, (int)_paramsAddr["ArmState_V_Position"], 44);
             _paramsAddr["ArmState_Font_Size"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["ArmState_Font_Size"], 0);
             _paramsAddr["ArmState_H_Alignment"] = address; address += 2;
@@ -589,18 +589,18 @@ namespace OSD
             _paramsAddr["BatteryCurrent_H_Alignment"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["BatteryCurrent_H_Alignment"], 2);
 
-            _paramsAddr["BatteryConsumed_Enable"] = address; address += 2;
-            u16toEPPROM(paramdefault, (int)_paramsAddr["BatteryConsumed_Enable"], 1);
-            _paramsAddr["BatteryConsumed_Panel"] = address; address += 2;
-            u16toEPPROM(paramdefault, (int)_paramsAddr["BatteryConsumed_Panel"], 1);
-            _paramsAddr["BatteryConsumed_H_Position"] = address; address += 2;
-            u16toEPPROM(paramdefault, (int)_paramsAddr["BatteryConsumed_H_Position"], 350);
-            _paramsAddr["BatteryConsumed_V_Position"] = address; address += 2;
-            u16toEPPROM(paramdefault, (int)_paramsAddr["BatteryConsumed_V_Position"], 24);
-            _paramsAddr["BatteryConsumed_Font_Size"] = address; address += 2;
-            u16toEPPROM(paramdefault, (int)_paramsAddr["BatteryConsumed_Font_Size"], 0);
-            _paramsAddr["BatteryConsumed_H_Alignment"] = address; address += 2;
-            u16toEPPROM(paramdefault, (int)_paramsAddr["BatteryConsumed_H_Alignment"], 2);
+            _paramsAddr["BatteryRemaining_Enable"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["BatteryRemaining_Enable"], 1);
+            _paramsAddr["BatteryRemaining_Panel"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["BatteryRemaining_Panel"], 1);
+            _paramsAddr["BatteryRemaining_H_Position"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["BatteryRemaining_H_Position"], 350);
+            _paramsAddr["BatteryRemaining_V_Position"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["BatteryRemaining_V_Position"], 24);
+            _paramsAddr["BatteryRemaining_Font_Size"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["BatteryRemaining_Font_Size"], 0);
+            _paramsAddr["BatteryRemaining_H_Alignment"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["BatteryRemaining_H_Alignment"], 2);
 
             _paramsAddr["FlightMode_Enable"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["FlightMode_Enable"], 1);
@@ -609,7 +609,7 @@ namespace OSD
             _paramsAddr["FlightMode_H_Position"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["FlightMode_H_Position"], 350);
             _paramsAddr["FlightMode_V_Position"] = address; address += 2;
-            u16toEPPROM(paramdefault, (int)_paramsAddr["FlightMode_V_Position"], 44);
+            u16toEPPROM(paramdefault, (int)_paramsAddr["FlightMode_V_Position"], 54);
             _paramsAddr["FlightMode_Font_Size"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["FlightMode_Font_Size"], 1);
             _paramsAddr["FlightMode_H_Alignment"] = address; address += 2;
@@ -785,7 +785,7 @@ namespace OSD
             _paramsAddr["Throttle_Scale_Enable"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["Throttle_Scale_Enable"], 1);
             _paramsAddr["Throttle_H_Position"] = address; address += 2;
-            u16toEPPROM(paramdefault, (int)_paramsAddr["Throttle_H_Position"], 295);
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Throttle_H_Position"], 285);
             _paramsAddr["Throttle_V_Position"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["Throttle_V_Position"], 202);
 
@@ -983,6 +983,37 @@ namespace OSD
 
             _paramsAddr["Misc_Video_Mode"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["Misc_Video_Mode"], 1);
+
+            _paramsAddr["Speed_Scale_V_Position"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Speed_Scale_V_Position"], 133);
+            _paramsAddr["Altitude_Scale_V_Position"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Altitude_Scale_V_Position"], 133);
+
+            _paramsAddr["BatteryConsumed_Enable"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["BatteryConsumed_Enable"], 1);
+            _paramsAddr["BatteryConsumed_Panel"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["BatteryConsumed_Panel"], 1);
+            _paramsAddr["BatteryConsumed_H_Position"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["BatteryConsumed_H_Position"], 350);
+            _paramsAddr["BatteryConsumed_V_Position"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["BatteryConsumed_V_Position"], 34);
+            _paramsAddr["BatteryConsumed_Font_Size"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["BatteryConsumed_Font_Size"], 0);
+            _paramsAddr["BatteryConsumed_H_Alignment"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["BatteryConsumed_H_Alignment"], 2);
+
+            _paramsAddr["TotalTrip_Enable"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["TotalTrip_Enable"], 1);
+            _paramsAddr["TotalTrip_Panel"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["TotalTrip_Panel"], 1);
+            _paramsAddr["TotalTrip_H_Position"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["TotalTrip_H_Position"], 350);
+            _paramsAddr["TotalTrip_V_Position"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["TotalTrip_V_Position"], 210);
+            _paramsAddr["TotalTrip_Font_Size"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["TotalTrip_Font_Size"], 0);
+            _paramsAddr["TotalTrip_H_Alignment"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["TotalTrip_H_Alignment"], 2);
         }
 
         internal PlayuavOSD.data genChildData(string root, string name, string value, string unit, string range, string desc)
@@ -1096,6 +1127,17 @@ namespace OSD
             dataBattCurrent.children.Add(genChildData(dataBattCurrent.paramname, "Font_Size", getU16ParamString(eeprom, (int)_paramsAddr["BatteryCurrent_Font_Size"]), "", "0, 1, 2", lang.getLangStr("font")));
             dataBattCurrent.children.Add(genChildData(dataBattCurrent.paramname, "H_Alignment", getU16ParamString(eeprom, (int)_paramsAddr["BatteryCurrent_H_Alignment"]), "", "0, 1, 2", lang.getLangStr("halign")));
             roots.Add(dataBattCurrent);
+
+            data dataBattRemaining = new PlayuavOSD.data();
+            dataBattRemaining.paramname = "BatteryRemaining";
+            dataBattRemaining.desc = lang.getLangStr("BatteryRemaining");
+            dataBattRemaining.children.Add(genChildData(dataBattRemaining.paramname, "Enable", getU16ParamString(eeprom, (int)_paramsAddr["BatteryRemaining_Enable"]), "", "0, 1", lang.getLangStr("enable")));
+            dataBattRemaining.children.Add(genChildData(dataBattRemaining.paramname, "Panel", getU16PanelString(eeprom, (int)_paramsAddr["BatteryRemaining_Panel"]), "", "1 - Max_Panels", lang.getLangStr("panel")));
+            dataBattRemaining.children.Add(genChildData(dataBattRemaining.paramname, "H_Position", getU16ParamString(eeprom, (int)_paramsAddr["BatteryRemaining_H_Position"]), "", "0 - 350", lang.getLangStr("hpos")));
+            dataBattRemaining.children.Add(genChildData(dataBattRemaining.paramname, "V_Position", getU16ParamString(eeprom, (int)_paramsAddr["BatteryRemaining_V_Position"]), "", "0 - 230", lang.getLangStr("vpos")));
+            dataBattRemaining.children.Add(genChildData(dataBattRemaining.paramname, "Font_Size", getU16ParamString(eeprom, (int)_paramsAddr["BatteryRemaining_Font_Size"]), "", "0, 1, 2", lang.getLangStr("font")));
+            dataBattRemaining.children.Add(genChildData(dataBattRemaining.paramname, "H_Alignment", getU16ParamString(eeprom, (int)_paramsAddr["BatteryRemaining_H_Alignment"]), "", "0, 1, 2", lang.getLangStr("halign")));
+            roots.Add(dataBattRemaining);
 
             data dataBattConsumed = new PlayuavOSD.data();
             dataBattConsumed.paramname = "BatteryConsumed";
@@ -1231,6 +1273,7 @@ namespace OSD
             dataAlt.children.Add(genChildData(dataAlt.paramname, "Scale_Enable", getU16ParamString(eeprom, (int)_paramsAddr["Altitude_Scale_Enable"]), "", "0, 1", lang.getLangStr("Altitude_Scale_Enable")));
             dataAlt.children.Add(genChildData(dataAlt.paramname, "Scale_Panel", getU16PanelString(eeprom, (int)_paramsAddr["Altitude_Scale_Panel"]), "", "1 - Max_Panels", lang.getLangStr("panel")));
             dataAlt.children.Add(genChildData(dataAlt.paramname, "Scale_H_Position", getU16ParamString(eeprom, (int)_paramsAddr["Altitude_Scale_H_Position"]), "", "0 - 350", lang.getLangStr("hpos")));
+            dataAlt.children.Add(genChildData(dataAlt.paramname, "Scale_V_Position", getU16ParamString(eeprom, (int)_paramsAddr["Altitude_Scale_V_Position"]), "", "0 - 230", lang.getLangStr("vpos")));
             dataAlt.children.Add(genChildData(dataAlt.paramname, "Scale_Align", getU16ParamString(eeprom, (int)_paramsAddr["Altitude_Scale_Align"]), "", "0, 1", lang.getLangStr("Scale_Align")));
             roots.Add(dataAlt);
 
@@ -1246,6 +1289,7 @@ namespace OSD
             dataSpeed.children.Add(genChildData(dataSpeed.paramname, "Scale_Enable", getU16ParamString(eeprom, (int)_paramsAddr["Speed_Scale_Enable"]), "", "0, 1", lang.getLangStr("Speed_Scale_Enable")));
             dataSpeed.children.Add(genChildData(dataSpeed.paramname, "Scale_Panel", getU16PanelString(eeprom, (int)_paramsAddr["Speed_Scale_Panel"]), "", "1 - Max_Panels", lang.getLangStr("panel")));
             dataSpeed.children.Add(genChildData(dataSpeed.paramname, "Scale_H_Position", getU16ParamString(eeprom, (int)_paramsAddr["Speed_Scale_H_Position"]), "", "0 - 350", lang.getLangStr("hpos")));
+            dataSpeed.children.Add(genChildData(dataSpeed.paramname, "Scale_V_Position", getU16ParamString(eeprom, (int)_paramsAddr["Speed_Scale_V_Position"]), "", "0 - 230", lang.getLangStr("vpos")));
             dataSpeed.children.Add(genChildData(dataSpeed.paramname, "Scale_Align", getU16ParamString(eeprom, (int)_paramsAddr["Speed_Scale_Align"]), "", "0, 1", lang.getLangStr("Scale_Align")));
             roots.Add(dataSpeed);
 
@@ -1351,6 +1395,17 @@ namespace OSD
             dataWind.children.Add(genChildData(dataWind.paramname, "H_Position", getU16ParamString(eeprom, (int)_paramsAddr["Wind_H_Position"]), "", "0 - 350", lang.getLangStr("hpos")));
             dataWind.children.Add(genChildData(dataWind.paramname, "V_Position", getU16ParamString(eeprom, (int)_paramsAddr["Wind_V_Position"]), "", "0 - 230", lang.getLangStr("Misc")));
             roots.Add(dataWind);
+
+            data dataTotalTrip = new PlayuavOSD.data();
+            dataTotalTrip.paramname = "TotalTrip";
+            dataTotalTrip.desc = lang.getLangStr("TotalTrip");
+            dataTotalTrip.children.Add(genChildData(dataTotalTrip.paramname, "Enable", getU16ParamString(eeprom, (int)_paramsAddr["TotalTrip_Enable"]), "", "0, 1", lang.getLangStr("enable")));
+            dataTotalTrip.children.Add(genChildData(dataTotalTrip.paramname, "Panel", getU16PanelString(eeprom, (int)_paramsAddr["TotalTrip_Panel"]), "", "1 - Max_Panels", lang.getLangStr("panel")));
+            dataTotalTrip.children.Add(genChildData(dataTotalTrip.paramname, "H_Position", getU16ParamString(eeprom, (int)_paramsAddr["TotalTrip_H_Position"]), "", "0 - 350", lang.getLangStr("hpos")));
+            dataTotalTrip.children.Add(genChildData(dataTotalTrip.paramname, "V_Position", getU16ParamString(eeprom, (int)_paramsAddr["TotalTrip_V_Position"]), "", "0 - 230", lang.getLangStr("vpos")));
+            dataTotalTrip.children.Add(genChildData(dataTotalTrip.paramname, "Font_Size", getU16ParamString(eeprom, (int)_paramsAddr["TotalTrip_Font_Size"]), "", "0, 1, 2", lang.getLangStr("font")));
+            dataTotalTrip.children.Add(genChildData(dataTotalTrip.paramname, "H_Alignment", getU16ParamString(eeprom, (int)_paramsAddr["TotalTrip_H_Alignment"]), "", "0, 1, 2", lang.getLangStr("halign")));
+            roots.Add(dataTotalTrip);
 
             foreach (var item in roots)
             {
@@ -1661,29 +1716,6 @@ namespace OSD
 
         void checkandupdateparam(string name, string value)
         {
-            //if (name == "SYSID_SW_MREV")
-            //    return;
-            //if (name == "WP_TOTAL")
-            //    return;
-            //if (name == "CMD_TOTAL")
-            //    return;
-            //if (name == "FENCE_TOTAL")
-            //    return;
-            //if (name == "SYS_NUM_RESETS")
-            //    return;
-            //if (name == "ARSPD_OFFSET")
-            //    return;
-            //if (name == "GND_ABS_PRESS")
-            //    return;
-            //if (name == "GND_TEMP")
-            //    return;
-            //if (name == "CMD_INDEX")
-            //    return;
-            //if (name == "LOG_LASTFILE")
-            //    return;
-            //if (name == "FORMAT_VERSION")
-            //    return;
-
             paramCompareForm_dtlvcallback(name, float.Parse(value));
         }
 
@@ -2086,9 +2118,9 @@ namespace OSD
                 Rectangle rc = new Rectangle(iposX - radio, iposY - radio, 2 * radio, 2 * radio);
                 ogl.DrawEllipse(whitePen, rc);
                 strOffset = ogl.calstring("N", font, SIZE_TO_FONT[0], whiteBrush, 1);
-                ogl.drawstring("N", font, SIZE_TO_FONT[0], whiteBrush, iposX - strOffset, iposY - radio-1);
+                //ogl.drawstring("N", font, SIZE_TO_FONT[0], whiteBrush, iposX - strOffset, iposY - radio-1);
                 ogl.drawstring("H", font, SIZE_TO_FONT[0], whiteBrush, iposX + hradio, iposY);
-                ogl.drawstring("W", font, SIZE_TO_FONT[0], whiteBrush, iposX, iposY + wpradio);
+                ogl.drawstring("2", font, SIZE_TO_FONT[0], whiteBrush, iposX, iposY + wpradio);
                 ogl.DrawLine(whitePen, iposX, iposY - 7, iposX - 3, iposY+7);
                 ogl.DrawLine(whitePen, iposX, iposY - 7, iposX + 3, iposY+7);
             }
@@ -2106,7 +2138,7 @@ namespace OSD
                 ogl.drawstring("H:10m", font, SIZE_TO_FONT[ifont], whiteBrush, iposX - strOffset, iposY);
             }
 
-            //home distance
+            //waypoint distance
             ien = getU16Param(eeprom, (int)_paramsAddr["WPDistance_Enable"]);
             ipanel = getU16Param(eeprom, (int)_paramsAddr["WPDistance_Panel"]);
             if (bShownAtPanle(ipanel, curPanel) && ien == 1)
@@ -2119,7 +2151,7 @@ namespace OSD
                 ogl.drawstring("W:30m", font, SIZE_TO_FONT[ifont], whiteBrush, iposX - strOffset, iposY);
             }
 
-            //waring
+            //warning
             iposX = getU16Param(eeprom, (int)_paramsAddr["Alarm_H_Position"]);
             iposY = getU16Param(eeprom, (int)_paramsAddr["Alarm_V_Position"]);
             ifont = getU16Param(eeprom, (int)_paramsAddr["Alarm_Font_Size"]);
@@ -2154,7 +2186,20 @@ namespace OSD
                 ogl.drawstring("5.8A", font, SIZE_TO_FONT[ifont], whiteBrush, iposX - strOffset, iposY);
             }
 
-            //battery remaining
+            //battery remaining percent
+            ien = getU16Param(eeprom, (int)_paramsAddr["BatteryRemaining_Enable"]);
+            ipanel = getU16Param(eeprom, (int)_paramsAddr["BatteryRemaining_Panel"]);
+            if (bShownAtPanle(ipanel, curPanel) && ien == 1)
+            {
+                iposX = getU16Param(eeprom, (int)_paramsAddr["BatteryRemaining_H_Position"]);
+                iposY = getU16Param(eeprom, (int)_paramsAddr["BatteryRemaining_V_Position"]);
+                ifont = getU16Param(eeprom, (int)_paramsAddr["BatteryRemaining_Font_Size"]);
+                ifontalign = getU16Param(eeprom, (int)_paramsAddr["BatteryRemaining_H_Alignment"]);
+                strOffset = ogl.calstring("99%", font, SIZE_TO_FONT[ifont], whiteBrush, ifontalign);
+                ogl.drawstring("99%", font, SIZE_TO_FONT[ifont], whiteBrush, iposX - strOffset, iposY);
+            }
+
+            //battery consumed mah
             ien = getU16Param(eeprom, (int)_paramsAddr["BatteryConsumed_Enable"]);
             ipanel = getU16Param(eeprom, (int)_paramsAddr["BatteryConsumed_Panel"]);
             if (bShownAtPanle(ipanel, curPanel) && ien == 1)
@@ -2163,8 +2208,8 @@ namespace OSD
                 iposY = getU16Param(eeprom, (int)_paramsAddr["BatteryConsumed_V_Position"]);
                 ifont = getU16Param(eeprom, (int)_paramsAddr["BatteryConsumed_Font_Size"]);
                 ifontalign = getU16Param(eeprom, (int)_paramsAddr["BatteryConsumed_H_Alignment"]);
-                strOffset = ogl.calstring("99%", font, SIZE_TO_FONT[ifont], whiteBrush, ifontalign);
-                ogl.drawstring("99%", font, SIZE_TO_FONT[ifont], whiteBrush, iposX - strOffset, iposY);
+                strOffset = ogl.calstring("2432mah", font, SIZE_TO_FONT[ifont], whiteBrush, ifontalign);
+                ogl.drawstring("2432mah", font, SIZE_TO_FONT[ifont], whiteBrush, iposX - strOffset, iposY);
             }
 
             //Arm state
@@ -2227,8 +2272,9 @@ namespace OSD
             if (bShownAtPanle(ipanel, curPanel) && ien == 1)
             {
                 iposX = getU16Param(eeprom, (int)_paramsAddr["Altitude_Scale_H_Position"]);
+                iposY = getU16Param(eeprom, (int)_paramsAddr["Altitude_Scale_V_Position"]);
                 short scaleAlign = getU16Param(eeprom, (int)_paramsAddr["Altitude_Scale_Align"]);
-                ogl.DrawVScale(whitePen, scaleAlign, iposX, halfheight, 0, 0, 0);
+                ogl.DrawVScale(whitePen, scaleAlign, iposX, iposY, 0, 0, 0);
             }
 
             //speed scale
@@ -2237,8 +2283,9 @@ namespace OSD
             if (bShownAtPanle(ipanel, curPanel) && ien == 1)
             {
                 iposX = getU16Param(eeprom, (int)_paramsAddr["Speed_Scale_H_Position"]);
+                iposY = getU16Param(eeprom, (int)_paramsAddr["Speed_Scale_V_Position"]);
                 short scaleAlign = getU16Param(eeprom, (int)_paramsAddr["Speed_Scale_Align"]);
-                ogl.DrawVScale(whitePen, scaleAlign, iposX, halfheight, 0, 0, 0);
+                ogl.DrawVScale(whitePen, scaleAlign, iposX, iposY, 0, 0, 0);
             }
 
             //climb rate - VSpeed
@@ -2388,6 +2435,19 @@ namespace OSD
                 ifontalign = getU16Param(eeprom, (int)_paramsAddr["Time_H_Alignment"]);
                 strOffset = ogl.calstring("48:51", font, SIZE_TO_FONT[ifont], whiteBrush, ifontalign);
                 ogl.drawstring("48:51", font, SIZE_TO_FONT[ifont], whiteBrush, iposX - strOffset, iposY);
+            }
+
+            //Total trip distance
+            ien = getU16Param(eeprom, (int)_paramsAddr["TotalTrip_Enable"]);
+            ipanel = getU16Param(eeprom, (int)_paramsAddr["TotalTrip_Panel"]);
+            if (bShownAtPanle(ipanel, curPanel) && ien == 1)
+            {
+                iposX = getU16Param(eeprom, (int)_paramsAddr["TotalTrip_H_Position"]);
+                iposY = getU16Param(eeprom, (int)_paramsAddr["TotalTrip_V_Position"]);
+                ifont = getU16Param(eeprom, (int)_paramsAddr["TotalTrip_Font_Size"]);
+                ifontalign = getU16Param(eeprom, (int)_paramsAddr["TotalTrip_H_Alignment"]);
+                strOffset = ogl.calstring("2.04km", font, SIZE_TO_FONT[ifont], whiteBrush, ifontalign);
+                ogl.drawstring("2.04km", font, SIZE_TO_FONT[ifont], whiteBrush, iposX - strOffset, iposY);
             }
 
             //Throttle

@@ -153,14 +153,14 @@ namespace OSD
                 lineoffset = 1;
                 strOffset = calstring("0", font, 5, whiteBrush, 0);
             }
-            DrawLine(pen, posx, posy - mintick_step * 5, posx - (lineoffset * majtick_len), posy - mintick_step * 5);
-            DrawLine(pen, posx, posy - mintick_step * 4, posx - (lineoffset * mintick_len), posy - mintick_step * 4);
+            //DrawLine(pen, posx, posy - mintick_step * 5, posx - (lineoffset * majtick_len), posy - mintick_step * 5);
+            //DrawLine(pen, posx, posy - mintick_step * 4, posx - (lineoffset * mintick_len), posy - mintick_step * 4);
             DrawLine(pen, posx, posy - mintick_step * 3, posx - (lineoffset * majtick_len), posy - mintick_step * 3);
             DrawLine(pen, posx, posy - mintick_step * 2, posx - (lineoffset * mintick_len), posy - mintick_step * 2);
             DrawLine(pen, posx, posy - mintick_step * 1, posx - (lineoffset * majtick_len), posy - mintick_step * 1);
             DrawLine(pen, posx, posy, posx - (lineoffset * mintick_len), posy);
-            DrawLine(pen, posx, posy + mintick_step * 5, posx - (lineoffset * majtick_len), posy + mintick_step * 5);
-            DrawLine(pen, posx, posy + mintick_step * 4, posx - (lineoffset * mintick_len), posy + mintick_step * 4);
+            //DrawLine(pen, posx, posy + mintick_step * 5, posx - (lineoffset * majtick_len), posy + mintick_step * 5);
+            //DrawLine(pen, posx, posy + mintick_step * 4, posx - (lineoffset * mintick_len), posy + mintick_step * 4);
             DrawLine(pen, posx, posy + mintick_step * 3, posx - (lineoffset * majtick_len), posy + mintick_step * 3);
             DrawLine(pen, posx, posy + mintick_step * 2, posx - (lineoffset * mintick_len), posy + mintick_step * 2);
             DrawLine(pen, posx, posy + mintick_step * 1, posx - (lineoffset * majtick_len), posy + mintick_step * 1);

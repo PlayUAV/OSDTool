@@ -185,8 +185,11 @@ namespace OSD
             _langdspen["BatteryCurrent"] = "";
             _langdspzh["BatteryCurrent"] = "电池电流";
 
-            _langdspen["BatteryConsumed"] = "Battery remaining";
-            _langdspzh["BatteryConsumed"] = "剩余电量，百分比";
+            _langdspen["BatteryRemaining"] = "Battery remaining";
+            _langdspzh["BatteryRemaining"] = "剩余电量，百分比";
+
+            _langdspen["BatteryConsumed"] = "total current drawn since startup in amp-hours";
+            _langdspzh["BatteryConsumed"] = "从上电开始已消耗的电量，单位毫安时";
 
             _langdspen["FlightMode"] = "";
             _langdspzh["FlightMode"] = "飞行模式";
@@ -340,6 +343,9 @@ namespace OSD
 
             _langdspen["Misc_Video_Mode"] = "Video Mode.0：NTSC  1：PAL. Should keep same with the camera. After changing, save to flash and reset the board ";
             _langdspzh["Misc_Video_Mode"] = "视频制式，0：NTSC  1：PAL. 应与摄像头保持一致. 修改之后保存到flash然后重启板子";
+
+            _langdspen["TotalTrip"] = "total distance traveled since startup";
+            _langdspzh["TotalTrip"] = "总的航行里程";
         }
     }
 }
