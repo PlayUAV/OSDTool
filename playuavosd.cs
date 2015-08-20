@@ -20,6 +20,8 @@ using System.Drawing.Drawing2D;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using log4net;
+using System.Globalization;
+
 namespace OSD
 {
     public partial class PlayuavOSD : Form
@@ -33,7 +35,7 @@ namespace OSD
         byte[] paramdefault = new byte[1024];
 
         PlayuavOSD self;
-        string currentVersion = "1.0.0.8";
+        string currentVersion = "1.0.1.1";
         bool bCheckUpdateStartup = false;
         short firmwareVesion = 7;
 
@@ -143,7 +145,7 @@ namespace OSD
 
             
             CheckNewVersion();
-            
+
             //timer1.Start();
         }
 
@@ -293,6 +295,8 @@ namespace OSD
             }
             catch
             {
+                CustomMessageBox.Show("Bad parameter");
+                return "";
             }
 
             return strRet;
@@ -309,6 +313,8 @@ namespace OSD
             }
             catch
             {
+                CustomMessageBox.Show("Bad parameter");
+                return "";
             }
             
             return strRet;
@@ -325,6 +331,8 @@ namespace OSD
             }
             catch
             {
+                CustomMessageBox.Show("Bad parameter");
+                return 0;
             }
             
             return ret;
@@ -360,6 +368,8 @@ namespace OSD
             }
             catch
             {
+                CustomMessageBox.Show("Bad parameter");
+                return "";
             }
             
             return strRet;
@@ -395,6 +405,7 @@ namespace OSD
             }
             catch
             {
+                CustomMessageBox.Show("Bad parameter");
                 return "";
             }
             
@@ -1071,7 +1082,7 @@ namespace OSD
             dataAtti.children.Add(genChildData(dataAtti.paramname, "3D_H_Position", getU16ParamString(eeprom, (int)_paramsAddr["Attitude_3D_H_Position"]), "", "0 - 350", lang.getLangStr("hpos")));
             dataAtti.children.Add(genChildData(dataAtti.paramname, "3D_V_Position", getU16ParamString(eeprom, (int)_paramsAddr["Attitude_3D_V_Position"]), "", "0 - 230", lang.getLangStr("vpos")));
             dataAtti.children.Add(genChildData(dataAtti.paramname, "3D_Scale", getScaleParamString(eeprom, (int)_paramsAddr["Attitude_3D_Scale_Real"]), "", "", lang.getLangStr("Attitude_Scale")));
-            dataAtti.children.Add(genChildData(dataAtti.paramname, "3D_Map_radius", getScaleParamString(eeprom, (int)_paramsAddr["Attitude_3D_Map_radius"]), "", "", lang.getLangStr("Attitude_3D_Map_radius")));
+            dataAtti.children.Add(genChildData(dataAtti.paramname, "3D_Map_radius", getU16ParamString(eeprom, (int)_paramsAddr["Attitude_3D_Map_radius"]), "", "", lang.getLangStr("Attitude_3D_Map_radius")));
             roots.Add(dataAtti);
 
             data dataMisc = new PlayuavOSD.data();
@@ -1088,10 +1099,10 @@ namespace OSD
             dataPWM.paramname = "PWM";
             dataPWM.desc = lang.getLangStr("PWM");
             dataPWM.children.Add(genChildData(dataPWM.paramname, "Video_Enable", getU16ParamString(eeprom, (int)_paramsAddr["PWM_Video_Enable"]), "", "0, 1", lang.getLangStr("enable")));
-            dataPWM.children.Add(genChildData(dataPWM.paramname, "Video_Chanel", getU16ParamString(eeprom, (int)_paramsAddr["PWM_Video_Chanel"]), "", "1-8", lang.getLangStr("PWM_Video_Chanel")));
+            dataPWM.children.Add(genChildData(dataPWM.paramname, "Video_Chanel", getU16ParamString(eeprom, (int)_paramsAddr["PWM_Video_Chanel"]), "", "5-16", lang.getLangStr("PWM_Video_Chanel")));
             dataPWM.children.Add(genChildData(dataPWM.paramname, "Video_Value", getU16ParamString(eeprom, (int)_paramsAddr["PWM_Video_Value"]), "", "", lang.getLangStr("PWM_Video_Value")));
             dataPWM.children.Add(genChildData(dataPWM.paramname, "Panel_Enable", getU16ParamString(eeprom, (int)_paramsAddr["PWM_Panel_Enable"]), "", "0, 1", lang.getLangStr("enable")));
-            dataPWM.children.Add(genChildData(dataPWM.paramname, "Panel_Chanel", getU16ParamString(eeprom, (int)_paramsAddr["PWM_Panel_Chanel"]), "", "1-8", lang.getLangStr("PWM_Panel_Chanel")));
+            dataPWM.children.Add(genChildData(dataPWM.paramname, "Panel_Chanel", getU16ParamString(eeprom, (int)_paramsAddr["PWM_Panel_Chanel"]), "", "5-16", lang.getLangStr("PWM_Panel_Chanel")));
             dataPWM.children.Add(genChildData(dataPWM.paramname, "Panel_Value", getU16ParamString(eeprom, (int)_paramsAddr["PWM_Panel_Value"]), "", "", lang.getLangStr("PWM_Panel_Value")));
             roots.Add(dataPWM);
 
@@ -1426,82 +1437,89 @@ namespace OSD
 
         private void Params_CellEditFinishing(object sender, BrightIdeasSoftware.CellEditEventArgs e)
         {
-            bool bPanelValue = false;
-            string paramsfullname = ((data)e.RowObject).root + "_" + ((data)e.RowObject).paramname;
-
-            if (paramsfullname.Contains("_Panel") && !(paramsfullname.Contains("PWM")) && !(paramsfullname.Contains("Max_Panels")))
-                bPanelValue = true;
-
-            if (e.NewValue != e.Value && e.Cancel == false)
+            try
             {
-                Console.WriteLine(e.NewValue + " " + e.NewValue.GetType());
+                bool bPanelValue = false;
+                string paramsfullname = ((data)e.RowObject).root + "_" + ((data)e.RowObject).paramname;
 
-                //double min = 0;
-                //double max = 0;
-                if (((data)e.RowObject).children.Count > 0)
+                if (paramsfullname.Contains("_Panel") && !(paramsfullname.Contains("PWM")) && !(paramsfullname.Contains("Max_Panels")))
+                    bPanelValue = true;
+
+                if (e.NewValue != e.Value && e.Cancel == false)
                 {
-                    e.Cancel = true;
-                    return;
-                }
+                    Console.WriteLine(e.NewValue + " " + e.NewValue.GetType());
 
-                float newvalue = 0;
-
-                if (bPanelValue)
-                {
-                    newvalue = panelValStr2F(e.NewValue.ToString());
-                    if (newvalue == 0)
+                    //double min = 0;
+                    //double max = 0;
+                    if (((data)e.RowObject).children.Count > 0)
                     {
                         e.Cancel = true;
                         return;
                     }
-                }
-                else
-                {
-                    try
+
+                    float newvalue = 0;
+
+                    if (bPanelValue)
                     {
-                        newvalue = float.Parse(e.NewValue.ToString());
+                        newvalue = panelValStr2F(e.NewValue.ToString());
+                        if (newvalue == 0)
+                        {
+                            e.Cancel = true;
+                            return;
+                        }
                     }
-                    catch { CustomMessageBox.Show("Bad number"); e.Cancel = true; return; }
-                }
+                    else
+                    {
+                        try
+                        {
+                            NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
+                            newvalue = float.Parse(e.NewValue.ToString(), nfi);
+                        }
+                        catch { CustomMessageBox.Show("Bad number"); e.Cancel = true; return; }
+                    }
 
-                //if (ParameterMetaDataRepository.GetParameterRange(((data)e.RowObject).paramname, ref min, ref max, MainV2.comPort.MAV.cs.firmware.ToString()))
-                //{
-                //    if (newvalue > max || newvalue < min)
-                //    {
-                //        if (CustomMessageBox.Show(((data)e.RowObject).paramname + " value is out of range. Do you want to continue?", "Out of range", MessageBoxButtons.YesNo) == DialogResult.No)
-                //        {
-                //            return;
-                //        }
-                //    }
-                //}
+                    //if (ParameterMetaDataRepository.GetParameterRange(((data)e.RowObject).paramname, ref min, ref max, MainV2.comPort.MAV.cs.firmware.ToString()))
+                    //{
+                    //    if (newvalue > max || newvalue < min)
+                    //    {
+                    //        if (CustomMessageBox.Show(((data)e.RowObject).paramname + " value is out of range. Do you want to continue?", "Out of range", MessageBoxButtons.YesNo) == DialogResult.No)
+                    //        {
+                    //            return;
+                    //        }
+                    //    }
+                    //}
 
-                //_changes[((data)e.RowObject).paramname] = newvalue;
-                _changes[paramsfullname] = newvalue;
+                    //_changes[((data)e.RowObject).paramname] = newvalue;
+                    _changes[paramsfullname] = newvalue;
 
-                if (paramsfullname.Contains("Attitude_") && paramsfullname.Contains("_Scale"))
-                {
-                    //this is size scale, divide into two parts for storing
-                    short temp = Convert.ToInt16(Math.Floor(newvalue));
-                    u16toEPPROM(eeprom, (int)_paramsAddr[paramsfullname + "_Real"], temp);
-                    newvalue -= temp;
-                    temp = Convert.ToInt16(newvalue*100);
-                    u16toEPPROM(eeprom, (int)_paramsAddr[paramsfullname + "_Frac"], temp);
-                }
-                else
-                {
-                    u16toEPPROM(eeprom, (int)_paramsAddr[paramsfullname], Convert.ToInt16(newvalue));
-                }
+                    if (paramsfullname.Contains("Attitude_") && paramsfullname.Contains("_Scale"))
+                    {
+                        //this is size scale, divide into two parts for storing
+                        
+                        short temp = Convert.ToInt16(Math.Floor(newvalue));
+                        u16toEPPROM(eeprom, (int)_paramsAddr[paramsfullname + "_Real"], temp);
+                        newvalue -= temp;
+                        temp = Convert.ToInt16(newvalue*100);
+                        u16toEPPROM(eeprom, (int)_paramsAddr[paramsfullname + "_Frac"], temp);
+                    }
+                    else
+                    {
+                        u16toEPPROM(eeprom, (int)_paramsAddr[paramsfullname], Convert.ToInt16(newvalue));
+                    }
                 
 
-                ((data)e.RowObject).Value = e.NewValue.ToString();
+                    ((data)e.RowObject).Value = e.NewValue.ToString();
 
-                var typer = e.RowObject.GetType();
+                    var typer = e.RowObject.GetType();
 
-                e.Cancel = true;
+                    e.Cancel = true;
 
-                Params.RefreshObject(e.RowObject);
+                    Params.RefreshObject(e.RowObject);
 
+                }
             }
+            catch { MessageBox.Show("Bad parameters", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+
         }
 
         private void Params_FormatRow(object sender, BrightIdeasSoftware.FormatRowEventArgs e)
@@ -1723,7 +1741,6 @@ namespace OSD
         {
             string strParent = "";
             string strChild = "";
-            bool bPanelValue = false;
             int nPos = param.IndexOf('_');
             if (nPos != 0)
             {
@@ -1739,18 +1756,36 @@ namespace OSD
                     {
                         if (item2.paramname == strChild)
                         {
-                            if (param.Contains("_Panel") && !(param.Contains("PWM")) && !(param.Contains("Max_Panels")))
-                                bPanelValue = true;
+                            //handle the attitude scale
+                            if (param.Contains("Attitude_") && param.Contains("_Scale"))
+                            {
+                                NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
+                                item2.Value = Convert.ToString(value, nfi);
+                                _changes[param] = value;
+                                Params.RefreshObject(item2);
+                                Params.Expand(item2);
+                                //this is size scale, divide into two parts for storing
+                                short temp = Convert.ToInt16(Math.Floor(value));
+                                u16toEPPROM(eeprom, (int)_paramsAddr[param + "_Real"], temp);
+                                value -= temp;
+                                temp = Convert.ToInt16(value * 100);
+                                u16toEPPROM(eeprom, (int)_paramsAddr[param + "_Frac"], temp);
+                                break;
+                            }
 
-                            if (bPanelValue)
+                            //handle panel item
+                            if (param.Contains("_Panel") && !(param.Contains("PWM")) && !(param.Contains("Max_Panels")))
                             {
                                 item2.Value = panelValF2Str((int)value);
-                            }
-                            else
-                            {
-                                item2.Value = value.ToString();
+                                _changes[param] = value;
+                                Params.RefreshObject(item2);
+                                Params.Expand(item2);
+                                u16toEPPROM(eeprom, (int)_paramsAddr[param], (short)value);
+                                break;
                             }
 
+                            //normal value
+                            item2.Value = value.ToString();
                             _changes[param] = value;
                             Params.RefreshObject(item2);
                             Params.Expand(item2);
@@ -1793,6 +1828,7 @@ namespace OSD
                 Hashtable data = new Hashtable();
                 string fullparamname;
                 bool bPanelValue = false;
+                bool bAttiScale = false;
                 foreach (data row in Params.Objects)
                 {
 
@@ -1803,17 +1839,29 @@ namespace OSD
                             float value;
                             fullparamname = row.paramname + "_" + item.paramname.ToString();
                             bPanelValue = false;
+                            bAttiScale = false;
                             if (fullparamname.Contains("_Panel") && !(fullparamname.Contains("PWM")) && !(fullparamname.Contains("Max_Panels")))
                                 bPanelValue = true;
 
-                            if (bPanelValue)
+                            if (fullparamname.Contains("Attitude_") && fullparamname.Contains("_Scale"))
                             {
+                                bAttiScale = true;
+                            }
+
+                            if (bPanelValue){
                                 value = panelValStr2F(item.Value.ToString());
                             }
-                            else
-                            {
+                            else if (bAttiScale){
+                                NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
+                                value = float.Parse(item.Value.ToString(), nfi);
+                            }
+                            else{
                                 value = float.Parse(item.Value.ToString());
                             }
+
+                            
+
+
                             data[fullparamname] = value;
                         }
                     }
@@ -2033,24 +2081,41 @@ namespace OSD
 
         private void lab_inc_Click(object sender, EventArgs e)
         {
-            short curpanel = Convert.ToInt16(labPanle.Text);
-            curpanel++;
-            if (curpanel > getU16Param(eeprom, (int)_paramsAddr["Misc_Max_Panels"]))
+            try
             {
-                curpanel = 1;
+                short curpanel = Convert.ToInt16(labPanle.Text);
+                curpanel++;
+                if (curpanel > getU16Param(eeprom, (int)_paramsAddr["Misc_Max_Panels"]))
+                {
+                    curpanel = 1;
+                }
+                labPanle.Text = curpanel.ToString();
             }
-            labPanle.Text = curpanel.ToString();
+            catch
+            {
+                CustomMessageBox.Show("Bad parameter");
+                return;
+            }
         }
 
         private void lab_dec_Click(object sender, EventArgs e)
         {
-            short curpanel = Convert.ToInt16(labPanle.Text);
-            curpanel--;
-            if (curpanel < 1)
+            try
             {
-                curpanel = getU16Param(eeprom, (int)_paramsAddr["Misc_Max_Panels"]);
+                short curpanel = Convert.ToInt16(labPanle.Text);
+                curpanel--;
+                if (curpanel < 1)
+                {
+                    curpanel = getU16Param(eeprom, (int)_paramsAddr["Misc_Max_Panels"]);
+                }
+                labPanle.Text = curpanel.ToString();
             }
-            labPanle.Text = curpanel.ToString();
+            catch
+            {
+            	CustomMessageBox.Show("Bad parameter");
+                return;
+            }
+            
         }
 
         
@@ -2246,7 +2311,18 @@ namespace OSD
                 iposX = getU16Param(eeprom, (int)_paramsAddr["Attitude_MP_H_Position"]);
                 iposY = getU16Param(eeprom, (int)_paramsAddr["Attitude_MP_V_Position"]);
                 iposY += 10;
-                double scale = Convert.ToDouble(getScaleParamString(eeprom, (int)_paramsAddr["Attitude_MP_Scale_Real"]));
+                double scale = 1.0;
+                try
+                {
+                    NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
+                    string strtmp = getScaleParamString(eeprom, (int)_paramsAddr["Attitude_MP_Scale_Real"]);
+                    scale = Convert.ToDouble(strtmp, nfi);
+                }
+                catch
+                {
+                    CustomMessageBox.Show("Bad parameter of Attitude_MP_Scale");
+                    return;
+                }
 
                 //ogl.drawstring("0", font, SIZE_TO_FONT[1], whiteBrush, iposX, (float)(40.0 * scale));
                 //RectangleF rect = new RectangleF(105, 55, 150, 100);
@@ -2541,9 +2617,33 @@ namespace OSD
                 iposX = getU16Param(eeprom, (int)_paramsAddr["Attitude_3D_H_Position"]);
                 iposY = getU16Param(eeprom, (int)_paramsAddr["Attitude_3D_V_Position"]);
                 iposY += 10;
-                double scale = Convert.ToDouble(getScaleParamString(eeprom, (int)_paramsAddr["Attitude_3D_Scale_Real"]));
-                short map_radius = getU16Param(eeprom, (int)_paramsAddr["Attitude_3D_Map_radius"]);
-                map_radius = Convert.ToInt16(Convert.ToDouble(map_radius) * scale);
+                double scale = 1.0;
+                short map_radius = 0;
+
+                try
+                {
+                    try
+                    {
+                        NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
+                        string strtmp = getScaleParamString(eeprom, (int)_paramsAddr["Attitude_3D_Scale_Real"]);
+                        scale = Convert.ToDouble(strtmp, nfi);
+                    }
+                    catch
+                    {
+                        CustomMessageBox.Show("Bad parameter of Attitude_3D_Scale");
+                        return;
+                    }
+
+                    //scale = Convert.ToDouble(getScaleParamString(eeprom, (int)_paramsAddr["Attitude_3D_Scale_Real"]));
+                    map_radius = getU16Param(eeprom, (int)_paramsAddr["Attitude_3D_Map_radius"]);
+                    map_radius = Convert.ToInt16(Convert.ToDouble(map_radius) * scale);
+                }
+                catch
+                {
+                	CustomMessageBox.Show("Bad parameter of Attitude_3D");
+                    return;
+                }
+                
 
                 PointF[] plist = new PointF[8];
                 float a = (float)(24.0 * scale);
@@ -2595,7 +2695,15 @@ namespace OSD
 
         private void cbx_fc_SelectedIndexChanged(object sender, EventArgs e)
         {
-            u16toEPPROM(eeprom, (int)_paramsAddr["FC_Type"], Convert.ToInt16(this.cbx_fc.SelectedIndex));
+            try
+            {
+                u16toEPPROM(eeprom, (int)_paramsAddr["FC_Type"], Convert.ToInt16(this.cbx_fc.SelectedIndex));
+            }
+            catch
+            {
+            	CustomMessageBox.Show("Bad parameter of FC_Type");
+            }
+            
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
