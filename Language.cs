@@ -136,6 +136,9 @@ namespace OSD
             _langdspen["halign"] = "0:left, 1:middle, 2:right";
             _langdspzh["halign"] = "0:左对齐,  1:居中, 2:右对齐";
 
+            _langdspen["valign"] = "0:top, 1:middle, 2:bottom";
+            _langdspzh["valign"] = "0:上对齐,  1:居中, 2:下对齐";
+
             _langdspen["alarmval"] = "Threshold";
             _langdspzh["alarmval"] = "警戒值";
 
@@ -296,6 +299,18 @@ namespace OSD
             _langdspen["ClimbRate"] = "vertical speed";
             _langdspzh["ClimbRate"] = "爬升率，即垂直速度";
 
+            _langdspen["RSSI_Type"] = "0:MAVLINK, 5-16:RC channel";
+            _langdspzh["RSSI_Type"] = "0:MAVLINK, 5-16:遥控通道";
+
+            _langdspen["RSSI_PWM"] = "If the RC supports RSSI input channel, just set the corresponding channel and put the max/min pwn values.";
+            _langdspzh["RSSI_PWM"] = "如果遥控器支持RSSI输入通道，则不用在飞控设置，直接把通道的最小最大值填入下面";
+
+            _langdspen["RSSI_Min_PWM"] = "RSSI Min Value(PWM)";
+            _langdspzh["RSSI_Min_PWM"] = "RSSI 最小的PWM值";
+
+            _langdspen["RSSI_Max_PWM"] = "RSSI Max Value(PWM)";
+            _langdspzh["RSSI_Max_PWM"] = "RSSI 最大的PWM值";
+
             _langdspen["RSSI"] = "First set the Raw_Enable to 1, then turn on and turn off your RC. Take the value from OSD to RSSI_Max and RSSI_Min. After that set Raw_Enable to 0";
             _langdspzh["RSSI"] = "首先MP里设置好，然后把Raw_Enable设为1.在OSD里观察打开，关闭遥控器得到的RSSI原始值，分别填到RSSI_Max, RSSI_Min,之后再把Raw_Enable设为0";
 
@@ -346,6 +361,12 @@ namespace OSD
 
             _langdspen["TotalTrip"] = "total distance traveled since startup";
             _langdspzh["TotalTrip"] = "总的航行里程";
+
+            _langdspen["Map"] = "Displays home, all the way-points and UAV with animation";
+            _langdspzh["Map"] = "动态的显示家，所有航点以及UAV的方向";
+
+            _langdspen["Map_Radius"] = "The boundary of the box.";
+            _langdspzh["Map_Radius"] = "最大包围框";
         }
     }
 }

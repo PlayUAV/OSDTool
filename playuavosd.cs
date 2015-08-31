@@ -52,6 +52,9 @@ namespace OSD
         public static LanguageEnum langid;
         private Language lang = new Language();
 
+        private short _rssi_type;
+        private short _last_rssi_type;
+
         public int osd_rev;
 
         public enum Code : byte
@@ -137,6 +140,9 @@ namespace OSD
             comPort = new MissionPlanner.Comms.SerialPort();
 
             setDefaultParams();
+
+            _rssi_type = getU16Param(eeprom, (int)_paramsAddr["RSSI_Type"]);
+            _last_rssi_type = _rssi_type;
 
             paramdefault.CopyTo(eeprom, 0);
             processToScreen();
@@ -866,7 +872,7 @@ namespace OSD
             _paramsAddr["Misc_Units_Mode"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["Misc_Units_Mode"], 0);
             _paramsAddr["Misc_Max_Panels"] = address; address += 2;
-            u16toEPPROM(paramdefault, (int)_paramsAddr["Misc_Max_Panels"], 2);
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Misc_Max_Panels"], 3);
 
             //PWM Config
             _paramsAddr["PWM_Video_Enable"] = address; address += 2;
@@ -888,7 +894,7 @@ namespace OSD
             _paramsAddr["Alarm_V_Position"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["Alarm_V_Position"], 25);
             _paramsAddr["Alarm_Font_Size"] = address; address += 2;
-            u16toEPPROM(paramdefault, (int)_paramsAddr["Alarm_Font_Size"], 2);
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Alarm_Font_Size"], 1);
             _paramsAddr["Alarm_H_Alignment"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["Alarm_H_Alignment"], 1);
             _paramsAddr["Alarm_GPS_Status_Enable"] = address; address += 2;
@@ -1025,6 +1031,22 @@ namespace OSD
             u16toEPPROM(paramdefault, (int)_paramsAddr["TotalTrip_Font_Size"], 0);
             _paramsAddr["TotalTrip_H_Alignment"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["TotalTrip_H_Alignment"], 2);
+
+            _paramsAddr["RSSI_Type"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["RSSI_Type"], 0);
+
+            _paramsAddr["Map_Enable"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Map_Enable"], 1);
+            _paramsAddr["Map_Panel"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Map_Panel"], 4);
+            _paramsAddr["Map_Radius"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Map_Radius"], 120);
+            _paramsAddr["Map_Font_Size"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Map_Font_Size"], 1);
+            _paramsAddr["Map_H_Alignment"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Map_H_Alignment"], 0);
+            _paramsAddr["Map_V_Alignment"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Map_V_Alignment"], 0);
         }
 
         internal PlayuavOSD.data genChildData(string root, string name, string value, string unit, string range, string desc)
@@ -1105,6 +1127,17 @@ namespace OSD
             dataPWM.children.Add(genChildData(dataPWM.paramname, "Panel_Chanel", getU16ParamString(eeprom, (int)_paramsAddr["PWM_Panel_Chanel"]), "", "5-16", lang.getLangStr("PWM_Panel_Chanel")));
             dataPWM.children.Add(genChildData(dataPWM.paramname, "Panel_Value", getU16ParamString(eeprom, (int)_paramsAddr["PWM_Panel_Value"]), "", "", lang.getLangStr("PWM_Panel_Value")));
             roots.Add(dataPWM);
+
+            data dataMap = new PlayuavOSD.data();
+            dataMap.paramname = "Map";
+            dataMap.desc = lang.getLangStr("Map");
+            dataMap.children.Add(genChildData(dataMap.paramname, "Enable", getU16ParamString(eeprom, (int)_paramsAddr["Map_Enable"]), "", "0, 1", lang.getLangStr("enable")));
+            dataMap.children.Add(genChildData(dataMap.paramname, "Panel", getU16PanelString(eeprom, (int)_paramsAddr["Map_Panel"]), "", "1 - Max_Panels", lang.getLangStr("panel")));
+            dataMap.children.Add(genChildData(dataMap.paramname, "Radius", getU16ParamString(eeprom, (int)_paramsAddr["Map_Radius"]), "", "1 - 120", lang.getLangStr("Map_Radius")));
+            dataMap.children.Add(genChildData(dataMap.paramname, "Font_Size", getU16ParamString(eeprom, (int)_paramsAddr["Map_Font_Size"]), "", "0, 1, 2", lang.getLangStr("font")));
+            dataMap.children.Add(genChildData(dataMap.paramname, "H_Alignment", getU16ParamString(eeprom, (int)_paramsAddr["Map_H_Alignment"]), "", "0, 1, 2", lang.getLangStr("halign")));
+            dataMap.children.Add(genChildData(dataMap.paramname, "V_Alignment", getU16ParamString(eeprom, (int)_paramsAddr["Map_V_Alignment"]), "", "0, 1, 2", lang.getLangStr("valign")));
+            roots.Add(dataMap);
 
             data dataArm = new PlayuavOSD.data();
             dataArm.paramname = "ArmState";
@@ -1386,15 +1419,26 @@ namespace OSD
 
             data dataRSSI = new PlayuavOSD.data();
             dataRSSI.paramname = "RSSI";
-            dataRSSI.desc = lang.getLangStr("RSSI");
+            if (_rssi_type == 0){
+                dataRSSI.desc = lang.getLangStr("RSSI");
+            }
+            else{
+                dataRSSI.desc = lang.getLangStr("RSSI_PWM");
+            }
             dataRSSI.children.Add(genChildData(dataRSSI.paramname, "Enable", getU16ParamString(eeprom, (int)_paramsAddr["RSSI_Enable"]), "", "0, 1", lang.getLangStr("enable")));
             dataRSSI.children.Add(genChildData(dataRSSI.paramname, "Panel", getU16PanelString(eeprom, (int)_paramsAddr["RSSI_Panel"]), "", "1 - Max_Panels", lang.getLangStr("panel")));
             dataRSSI.children.Add(genChildData(dataRSSI.paramname, "H_Position", getU16ParamString(eeprom, (int)_paramsAddr["RSSI_H_Position"]), "", "0 - 350", lang.getLangStr("hpos")));
             dataRSSI.children.Add(genChildData(dataRSSI.paramname, "V_Position", getU16ParamString(eeprom, (int)_paramsAddr["RSSI_V_Position"]), "", "0 - 230", lang.getLangStr("Misc")));
             dataRSSI.children.Add(genChildData(dataRSSI.paramname, "Font_Size", getU16ParamString(eeprom, (int)_paramsAddr["RSSI_Font_Size"]), "", "0, 1, 2", lang.getLangStr("font")));
             dataRSSI.children.Add(genChildData(dataRSSI.paramname, "H_Alignment", getU16ParamString(eeprom, (int)_paramsAddr["RSSI_H_Alignment"]), "", "0, 1, 2", lang.getLangStr("halign")));
-            dataRSSI.children.Add(genChildData(dataRSSI.paramname, "Min", getU16ParamString(eeprom, (int)_paramsAddr["RSSI_Min"]), "", "0-255", lang.getLangStr("RSSI_Min")));
-            dataRSSI.children.Add(genChildData(dataRSSI.paramname, "Max", getU16ParamString(eeprom, (int)_paramsAddr["RSSI_Max"]), "", "RSSI_Min-255", lang.getLangStr("RSSI_Max")));
+            dataRSSI.children.Add(genChildData(dataRSSI.paramname, "Type", getU16ParamString(eeprom, (int)_paramsAddr["RSSI_Type"]), "", "", lang.getLangStr("RSSI_Type")));
+            if (_rssi_type == 0){
+                dataRSSI.children.Add(genChildData(dataRSSI.paramname, "Min", getU16ParamString(eeprom, (int)_paramsAddr["RSSI_Min"]), "", "0-255", lang.getLangStr("RSSI_Min")));
+                dataRSSI.children.Add(genChildData(dataRSSI.paramname, "Max", getU16ParamString(eeprom, (int)_paramsAddr["RSSI_Max"]), "", "RSSI_Min-255", lang.getLangStr("RSSI_Max")));
+            }else{
+                dataRSSI.children.Add(genChildData(dataRSSI.paramname, "Min", getU16ParamString(eeprom, (int)_paramsAddr["RSSI_Min"]), "", "900", lang.getLangStr("RSSI_Min_PWM")));
+                dataRSSI.children.Add(genChildData(dataRSSI.paramname, "Max", getU16ParamString(eeprom, (int)_paramsAddr["RSSI_Max"]), "", "2000", lang.getLangStr("RSSI_Max_PWM")));
+            }
             dataRSSI.children.Add(genChildData(dataRSSI.paramname, "Raw_Enable", getU16ParamString(eeprom, (int)_paramsAddr["RSSI_Raw_Enable"]), "", "0, 1", lang.getLangStr("RSSI_Raw_Enable")));
             roots.Add(dataRSSI);
 
@@ -1516,6 +1560,15 @@ namespace OSD
 
                     Params.RefreshObject(e.RowObject);
 
+                    if (paramsfullname.Equals("RSSI_Type"))
+                    {
+                        _rssi_type = getU16Param(eeprom, (int)_paramsAddr["RSSI_Type"]);
+                        if (_last_rssi_type != _rssi_type)
+                        {
+                            _last_rssi_type = _rssi_type;
+                            processToScreen();
+                        }
+                    }
                 }
             }
             catch { MessageBox.Show("Bad parameters", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -2690,6 +2743,47 @@ namespace OSD
                 ogl.DrawLine(whitePen, plist[2].X, plist[2].Y, plist[0].X, plist[0].Y);
                 ogl.DrawLine(whitePen, plist[3].X, plist[3].Y, plist[4].X, plist[4].Y);
                 ogl.drawstring("0.00kmh", font, SIZE_TO_FONT[ifont], whiteBrush, iposX+15, iposY-5);
+            }
+
+            //map
+            ien = getU16Param(eeprom, (int)_paramsAddr["Map_Enable"]);
+            ipanel = getU16Param(eeprom, (int)_paramsAddr["Map_Panel"]);
+            if (bShownAtPanle(ipanel, curPanel) && ien == 1)
+            {
+                PointF[] plist = new PointF[8];
+                plist[0] = new PointF(80, 40);
+                plist[1] = new PointF(70, 200);
+                plist[2] = new PointF(290, 190);
+                plist[3] = new PointF(290, 70);
+                plist[4] = new PointF(170, 130);    //home
+                plist[5] = new PointF(200, 195);    //uav
+                plist[6] = new PointF(177, 187);    //uav
+                plist[7] = new PointF(177, 203);    //uav
+                ogl.DrawLine(whitePen, plist[0].X, plist[0].Y, plist[1].X, plist[1].Y);
+                ogl.DrawLine(whitePen, plist[1].X, plist[1].Y, plist[2].X, plist[2].Y);
+                ogl.DrawLine(whitePen, plist[2].X, plist[2].Y, plist[3].X, plist[3].Y);
+                ogl.DrawLine(whitePen, plist[3].X, plist[3].Y, plist[4].X, plist[4].Y);
+                ogl.DrawLine(whitePen, plist[0].X, plist[0].Y, plist[4].X, plist[4].Y);
+                ogl.DrawLine(whitePen, plist[5].X, plist[5].Y, plist[6].X, plist[6].Y);
+                ogl.DrawLine(whitePen, plist[5].X, plist[5].Y, plist[7].X, plist[7].Y);
+
+                strOffset = ogl.calstring("1", font, SIZE_TO_FONT[2], whiteBrush, 1);
+                ogl.drawstring("1", font, SIZE_TO_FONT[2], whiteBrush, plist[0].X - strOffset, plist[0].Y);
+                ogl.drawstring("2", font, SIZE_TO_FONT[2], whiteBrush, plist[1].X - strOffset, plist[1].Y);
+                ogl.drawstring("3", font, SIZE_TO_FONT[2], whiteBrush, plist[2].X - strOffset, plist[2].Y);
+                ogl.drawstring("4", font, SIZE_TO_FONT[2], whiteBrush, plist[3].X - strOffset, plist[3].Y);
+                ogl.drawstring("H", font, SIZE_TO_FONT[2], whiteBrush, plist[4].X - strOffset, plist[4].Y);
+                //short radio = getU16Param(eeprom, (int)_paramsAddr["CHWDIR_Nmode_Radius"]);
+                //short hradio = getU16Param(eeprom, (int)_paramsAddr["CHWDIR_Nmode_Home_Radius"]);
+                //short wpradio = getU16Param(eeprom, (int)_paramsAddr["CHWDIR_Nmode_WP_Radius"]);
+                //Rectangle rc = new Rectangle(iposX - radio, iposY - radio, 2 * radio, 2 * radio);
+                //ogl.DrawEllipse(whitePen, rc);
+                //strOffset = ogl.calstring("N", font, SIZE_TO_FONT[0], whiteBrush, 1);
+                ////ogl.drawstring("N", font, SIZE_TO_FONT[0], whiteBrush, iposX - strOffset, iposY - radio-1);
+                //ogl.drawstring("H", font, SIZE_TO_FONT[0], whiteBrush, iposX + hradio, iposY);
+                //ogl.drawstring("2", font, SIZE_TO_FONT[0], whiteBrush, iposX, iposY + wpradio);
+                //ogl.DrawLine(whitePen, iposX, iposY - 7, iposX - 3, iposY + 7);
+                //ogl.DrawLine(whitePen, iposX, iposY - 7, iposX + 3, iposY + 7);
             }
         }
 
