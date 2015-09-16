@@ -23,16 +23,25 @@ namespace MissionPlanner.Utilities
             {
                 string line = sr.ReadLine();
 
-                if (line.Contains("NOTE:"))
+                if (line.Contains("NOTE:") || line.StartsWith("#"))
                 {
-                    CustomMessageBox.Show(line, "Saved Note");
-                    continue;
+                    //CustomMessageBox.Show(line, "Saved Note");
+                    continue;  
                 }
 
-                if (line.StartsWith("#"))
-                    continue;
+                if (!line.Contains("="))
+                {
+                    //CustomMessageBox.Show(line, "Saved Note");
+                    //continue;
+                    string str_warn = "The setting file is saved in old format. Please manual open the file:\n 1:Remove the comments in the first line.\n 2:Replace all the ',' to '='.\n 3:Save the file and load again.";
+                    CustomMessageBox.Show(str_warn, "Warning!");
+                    break;
 
-                string[] items = line.Split(new char[] { ' ', ',', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                }
+
+
+                //string[] items = line.Split(new char[] { ' ', ',', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] items = line.Split(new char[] { ' ', '=', '\t' }, StringSplitOptions.RemoveEmptyEntries);
 
                 if (items.Length != 2)
                     continue;
@@ -78,10 +87,10 @@ namespace MissionPlanner.Utilities
         public static void SaveParamFile(string fn, Hashtable paramlist)
         {
             StreamWriter sw = new StreamWriter(File.Open(fn, FileMode.Create));
-            string input = DateTime.Now + " Comments : ";
-            InputBox.Show("Custom Note", "Enter your Notes/Frame Type etc", ref input);
-            if (input != "")
-                sw.WriteLine("#NOTE: " + input.Replace(',', '|'));
+            //string input = DateTime.Now + " Comments : ";
+            //InputBox.Show("Custom Note", "Enter your Notes/Frame Type etc", ref input);
+            //if (input != "")
+            //    sw.WriteLine("#NOTE: " + input.Replace(',', '|'));
 
             var list = new SortedList(paramlist);
 
@@ -89,7 +98,8 @@ namespace MissionPlanner.Utilities
             {
                 float value = float.Parse(paramlist[item].ToString());
 
-                sw.WriteLine(item + "," + value.ToString(new System.Globalization.CultureInfo("en-US")));
+                //sw.WriteLine(item + "," + value.ToString(new System.Globalization.CultureInfo("en-US")));
+                sw.WriteLine(item + "=" + value.ToString(new System.Globalization.CultureInfo("en-US")));
             }
             sw.Close();
         }
