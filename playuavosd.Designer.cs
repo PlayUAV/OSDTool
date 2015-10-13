@@ -67,6 +67,9 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.linkLabelwiki = new System.Windows.Forms.LinkLabel();
             this.linkLabelHome = new System.Windows.Forms.LinkLabel();
+            this.lab_cur_firmware = new System.Windows.Forms.Label();
+            this.lab_last_firmware = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Params)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -456,11 +459,45 @@
             this.linkLabelHome.Text = "Support";
             this.linkLabelHome.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
             // 
+            // lab_cur_firmware
+            // 
+            this.lab_cur_firmware.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lab_cur_firmware.AutoSize = true;
+            this.lab_cur_firmware.Location = new System.Drawing.Point(552, 458);
+            this.lab_cur_firmware.Name = "lab_cur_firmware";
+            this.lab_cur_firmware.Size = new System.Drawing.Size(143, 12);
+            this.lab_cur_firmware.TabIndex = 103;
+            this.lab_cur_firmware.Text = "Current Firware version";
+            // 
+            // lab_last_firmware
+            // 
+            this.lab_last_firmware.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lab_last_firmware.AutoSize = true;
+            this.lab_last_firmware.Location = new System.Drawing.Point(552, 477);
+            this.lab_last_firmware.Name = "lab_last_firmware";
+            this.lab_last_firmware.Size = new System.Drawing.Size(143, 12);
+            this.lab_last_firmware.TabIndex = 104;
+            this.lab_last_firmware.Text = "Latest Firmware Version";
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(575, 561);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(311, 12);
+            this.label1.TabIndex = 105;
+            this.label1.Text = "Click here to update the firmware to latest version";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // PlayuavOSD
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(898, 628);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lab_last_firmware);
+            this.Controls.Add(this.lab_cur_firmware);
             this.Controls.Add(this.linkLabelHome);
             this.Controls.Add(this.linkLabelwiki);
             this.Controls.Add(this.cbx_fc);
@@ -534,5 +571,8 @@
         private System.Windows.Forms.LinkLabel linkLabelwiki;
         private System.Windows.Forms.LinkLabel linkLabelHome;
         private System.Windows.Forms.ToolStripMenuItem checkToolStripMenuItem;
+        private System.Windows.Forms.Label lab_cur_firmware;
+        private System.Windows.Forms.Label lab_last_firmware;
+        private System.Windows.Forms.Label label1;
     }
 }

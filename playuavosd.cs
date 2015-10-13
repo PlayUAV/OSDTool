@@ -35,9 +35,9 @@ namespace OSD
         byte[] paramdefault = new byte[1024];
 
         PlayuavOSD self;
-        string currentVersion = "1.0.1.1";
+        string currentVersion = "1.0.1.3";
         bool bCheckUpdateStartup = false;
-        short firmwareVesion = 7;
+        short firmwareVesion = 9;
 
         // Changes made to the params between writing to the copter
         readonly Hashtable _changes = new Hashtable();
@@ -151,7 +151,7 @@ namespace OSD
 
             
             CheckNewVersion();
-
+            lab_last_firmware.Text = "Latest Firmware Version:" + Convert.ToString(firmwareVesion);
             //timer1.Start();
         }
 
@@ -749,18 +749,18 @@ namespace OSD
             _paramsAddr["Time_H_Alignment"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["Time_H_Alignment"], 2);
 
-            _paramsAddr["Altitude_TALT_Enable"] = address; address += 2;
-            u16toEPPROM(paramdefault, (int)_paramsAddr["Altitude_TALT_Enable"], 1);
-            _paramsAddr["Altitude_TALT_Panel"] = address; address += 2;
-            u16toEPPROM(paramdefault, (int)_paramsAddr["Altitude_TALT_Panel"], 2);
-            _paramsAddr["Altitude_TALT_H_Position"] = address; address += 2;
-            u16toEPPROM(paramdefault, (int)_paramsAddr["Altitude_TALT_H_Position"], 5);
-            _paramsAddr["Altitude_TALT_V_Position"] = address; address += 2;
-            u16toEPPROM(paramdefault, (int)_paramsAddr["Altitude_TALT_V_Position"], 10);
-            _paramsAddr["Altitude_TALT_Font_Size"] = address; address += 2;
-            u16toEPPROM(paramdefault, (int)_paramsAddr["Altitude_TALT_Font_Size"], 0);
-            _paramsAddr["Altitude_TALT_H_Alignment"] = address; address += 2;
-            u16toEPPROM(paramdefault, (int)_paramsAddr["Altitude_TALT_H_Alignment"], 0);
+            _paramsAddr["Altitude_Absolute_Enable"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Altitude_Absolute_Enable"], 1);
+            _paramsAddr["Altitude_Absolute_Panel"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Altitude_Absolute_Panel"], 2);
+            _paramsAddr["Altitude_Absolute_H_Position"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Altitude_Absolute_H_Position"], 5);
+            _paramsAddr["Altitude_Absolute_V_Position"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Altitude_Absolute_V_Position"], 10);
+            _paramsAddr["Altitude_Absolute_Font_Size"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Altitude_Absolute_Font_Size"], 0);
+            _paramsAddr["Altitude_Absolute_H_Alignment"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Altitude_Absolute_H_Alignment"], 0);
             _paramsAddr["Altitude_Scale_Enable"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["Altitude_Scale_Enable"], 1);
             _paramsAddr["Altitude_Scale_Panel"] = address; address += 2;
@@ -772,18 +772,18 @@ namespace OSD
             _paramsAddr["Altitude_Scale_Source"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["Altitude_Scale_Source"], 0);
 
-            _paramsAddr["Speed_TSPD_Enable"] = address; address += 2;
-            u16toEPPROM(paramdefault, (int)_paramsAddr["Speed_TSPD_Enable"], 1);
-            _paramsAddr["Speed_TSPD_Panel"] = address; address += 2;
-            u16toEPPROM(paramdefault, (int)_paramsAddr["Speed_TSPD_Panel"], 2);
-            _paramsAddr["Speed_TSPD_H_Position"] = address; address += 2;
-            u16toEPPROM(paramdefault, (int)_paramsAddr["Speed_TSPD_H_Position"], 5);
-            _paramsAddr["Speed_TSPD_V_Position"] = address; address += 2;
-            u16toEPPROM(paramdefault, (int)_paramsAddr["Speed_TSPD_V_Position"], 25);
-            _paramsAddr["Speed_TSPD_Font_Size"] = address; address += 2;
-            u16toEPPROM(paramdefault, (int)_paramsAddr["Speed_TSPD_Font_Size"], 0);
-            _paramsAddr["Speed_TSPD_H_Alignment"] = address; address += 2;
-            u16toEPPROM(paramdefault, (int)_paramsAddr["Speed_TSPD_H_Alignment"], 0);
+            _paramsAddr["Speed_Ground_Enable"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Speed_Ground_Enable"], 1);
+            _paramsAddr["Speed_Ground_Panel"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Speed_Ground_Panel"], 2);
+            _paramsAddr["Speed_Ground_H_Position"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Speed_Ground_H_Position"], 5);
+            _paramsAddr["Speed_Ground_V_Position"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Speed_Ground_V_Position"], 40);
+            _paramsAddr["Speed_Ground_Font_Size"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Speed_Ground_Font_Size"], 0);
+            _paramsAddr["Speed_Ground_H_Alignment"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Speed_Ground_H_Alignment"], 0);
             _paramsAddr["Speed_Scale_Enable"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["Speed_Scale_Enable"], 1);
             _paramsAddr["Speed_Scale_Panel"] = address; address += 2;
@@ -963,7 +963,7 @@ namespace OSD
             _paramsAddr["Wind_H_Position"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["Wind_H_Position"], 10);
             _paramsAddr["Wind_V_Position"] = address; address += 2;
-            u16toEPPROM(paramdefault, (int)_paramsAddr["Wind_V_Position"], 50);
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Wind_V_Position"], 100);
 
             _paramsAddr["Time_Type"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["Time_Type"], 0);
@@ -1035,6 +1035,7 @@ namespace OSD
             _paramsAddr["RSSI_Type"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["RSSI_Type"], 0);
 
+            //v1.08
             _paramsAddr["Map_Enable"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["Map_Enable"], 1);
             _paramsAddr["Map_Panel"] = address; address += 2;
@@ -1047,6 +1048,43 @@ namespace OSD
             u16toEPPROM(paramdefault, (int)_paramsAddr["Map_H_Alignment"], 0);
             _paramsAddr["Map_V_Alignment"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["Map_V_Alignment"], 0);
+
+            //v1.0.9
+            //relative altitude
+            _paramsAddr["Altitude_Relative_Enable"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Altitude_Relative_Enable"], 1);
+            _paramsAddr["Altitude_Relative_Panel"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Altitude_Relative_Panel"], 2);
+            _paramsAddr["Altitude_Relative_H_Position"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Altitude_Relative_H_Position"], 5);
+            _paramsAddr["Altitude_Relative_V_Position"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Altitude_Relative_V_Position"], 25);
+            _paramsAddr["Altitude_Relative_Font_Size"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Altitude_Relative_Font_Size"], 0);
+            _paramsAddr["Altitude_Relative_H_Alignment"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Altitude_Relative_H_Alignment"], 0);
+
+            //0:absolute altitude 1:relative altitude
+            _paramsAddr["Altitude_Scale_Type"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Altitude_Scale_Type"], 1);  
+
+            //AirSpeed
+            _paramsAddr["Speed_Air_Enable"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Speed_Air_Enable"], 1);
+            _paramsAddr["Speed_Air_Panel"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Speed_Air_Panel"], 2);
+            _paramsAddr["Speed_Air_H_Position"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Speed_Air_H_Position"], 5);
+            _paramsAddr["Speed_Air_V_Position"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Speed_Air_V_Position"], 55);
+            _paramsAddr["Speed_Air_Font_Size"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Speed_Air_Font_Size"], 0);
+            _paramsAddr["Speed_Air_H_Alignment"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Speed_Air_H_Alignment"], 0);
+
+            //0:ground speed 1:air speed
+            _paramsAddr["Speed_Scale_Type"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Speed_Scale_Type"], 0);
         }
 
         internal PlayuavOSD.data genChildData(string root, string name, string value, string unit, string range, string desc)
@@ -1308,13 +1346,20 @@ namespace OSD
             data dataAlt = new PlayuavOSD.data();
             dataAlt.paramname = "Altitude";
             dataAlt.desc = lang.getLangStr("Altitude");
-            dataAlt.children.Add(genChildData(dataAlt.paramname, "TALT_Enable", getU16ParamString(eeprom, (int)_paramsAddr["Altitude_TALT_Enable"]), "", "0, 1", lang.getLangStr("Altitude_TALT_Enable")));
-            dataAlt.children.Add(genChildData(dataAlt.paramname, "TALT_Panel", getU16PanelString(eeprom, (int)_paramsAddr["Altitude_TALT_Panel"]), "", "1 - Max_Panels", lang.getLangStr("panel")));
-            dataAlt.children.Add(genChildData(dataAlt.paramname, "TALT_H_Position", getU16ParamString(eeprom, (int)_paramsAddr["Altitude_TALT_H_Position"]), "", "0 - 350", lang.getLangStr("hpos")));
-            dataAlt.children.Add(genChildData(dataAlt.paramname, "TALT_V_Position", getU16ParamString(eeprom, (int)_paramsAddr["Altitude_TALT_V_Position"]), "", "0 - 230", lang.getLangStr("vpos")));
-            dataAlt.children.Add(genChildData(dataAlt.paramname, "TALT_Font_Size", getU16ParamString(eeprom, (int)_paramsAddr["Altitude_TALT_Font_Size"]), "", "0, 1, 2", lang.getLangStr("font")));
-            dataAlt.children.Add(genChildData(dataAlt.paramname, "TALT_H_Alignment", getU16ParamString(eeprom, (int)_paramsAddr["Altitude_TALT_H_Alignment"]), "", "0, 1, 2", lang.getLangStr("halign")));
+            dataAlt.children.Add(genChildData(dataAlt.paramname, "Absolute_Enable", getU16ParamString(eeprom, (int)_paramsAddr["Altitude_Absolute_Enable"]), "", "0, 1", lang.getLangStr("Altitude_Absolute_Enable")));
+            dataAlt.children.Add(genChildData(dataAlt.paramname, "Absolute_Panel", getU16PanelString(eeprom, (int)_paramsAddr["Altitude_Absolute_Panel"]), "", "1 - Max_Panels", lang.getLangStr("panel")));
+            dataAlt.children.Add(genChildData(dataAlt.paramname, "Absolute_H_Position", getU16ParamString(eeprom, (int)_paramsAddr["Altitude_Absolute_H_Position"]), "", "0 - 350", lang.getLangStr("hpos")));
+            dataAlt.children.Add(genChildData(dataAlt.paramname, "Absolute_V_Position", getU16ParamString(eeprom, (int)_paramsAddr["Altitude_Absolute_V_Position"]), "", "0 - 230", lang.getLangStr("vpos")));
+            dataAlt.children.Add(genChildData(dataAlt.paramname, "Absolute_Font_Size", getU16ParamString(eeprom, (int)_paramsAddr["Altitude_Absolute_Font_Size"]), "", "0, 1, 2", lang.getLangStr("font")));
+            dataAlt.children.Add(genChildData(dataAlt.paramname, "Absolute_H_Alignment", getU16ParamString(eeprom, (int)_paramsAddr["Altitude_Absolute_H_Alignment"]), "", "0, 1, 2", lang.getLangStr("halign")));
+            dataAlt.children.Add(genChildData(dataAlt.paramname, "Relative_Enable", getU16ParamString(eeprom, (int)_paramsAddr["Altitude_Relative_Enable"]), "", "0, 1", lang.getLangStr("Altitude_Relative_Enable")));
+            dataAlt.children.Add(genChildData(dataAlt.paramname, "Relative_Panel", getU16PanelString(eeprom, (int)_paramsAddr["Altitude_Relative_Panel"]), "", "1 - Max_Panels", lang.getLangStr("panel")));
+            dataAlt.children.Add(genChildData(dataAlt.paramname, "Relative_H_Position", getU16ParamString(eeprom, (int)_paramsAddr["Altitude_Relative_H_Position"]), "", "0 - 350", lang.getLangStr("hpos")));
+            dataAlt.children.Add(genChildData(dataAlt.paramname, "Relative_V_Position", getU16ParamString(eeprom, (int)_paramsAddr["Altitude_Relative_V_Position"]), "", "0 - 230", lang.getLangStr("vpos")));
+            dataAlt.children.Add(genChildData(dataAlt.paramname, "Relative_Font_Size", getU16ParamString(eeprom, (int)_paramsAddr["Altitude_Relative_Font_Size"]), "", "0, 1, 2", lang.getLangStr("font")));
+            dataAlt.children.Add(genChildData(dataAlt.paramname, "Relative_H_Alignment", getU16ParamString(eeprom, (int)_paramsAddr["Altitude_Relative_H_Alignment"]), "", "0, 1, 2", lang.getLangStr("halign")));
             dataAlt.children.Add(genChildData(dataAlt.paramname, "Scale_Enable", getU16ParamString(eeprom, (int)_paramsAddr["Altitude_Scale_Enable"]), "", "0, 1", lang.getLangStr("Altitude_Scale_Enable")));
+            dataAlt.children.Add(genChildData(dataAlt.paramname, "Scale_Type", getU16ParamString(eeprom, (int)_paramsAddr["Altitude_Scale_Type"]), "", "0, 1", lang.getLangStr("Altitude_Scale_Type")));
             dataAlt.children.Add(genChildData(dataAlt.paramname, "Scale_Panel", getU16PanelString(eeprom, (int)_paramsAddr["Altitude_Scale_Panel"]), "", "1 - Max_Panels", lang.getLangStr("panel")));
             dataAlt.children.Add(genChildData(dataAlt.paramname, "Scale_H_Position", getU16ParamString(eeprom, (int)_paramsAddr["Altitude_Scale_H_Position"]), "", "0 - 350", lang.getLangStr("hpos")));
             dataAlt.children.Add(genChildData(dataAlt.paramname, "Scale_V_Position", getU16ParamString(eeprom, (int)_paramsAddr["Altitude_Scale_V_Position"]), "", "0 - 230", lang.getLangStr("vpos")));
@@ -1324,13 +1369,20 @@ namespace OSD
             data dataSpeed = new PlayuavOSD.data();
             dataSpeed.paramname = "Speed";
             dataSpeed.desc = lang.getLangStr("Speed");
-            dataSpeed.children.Add(genChildData(dataSpeed.paramname, "TSPD_Enable", getU16ParamString(eeprom, (int)_paramsAddr["Speed_TSPD_Enable"]), "", "0, 1", lang.getLangStr("Speed_TSPD_Enable")));
-            dataSpeed.children.Add(genChildData(dataSpeed.paramname, "TSPD_Panel", getU16PanelString(eeprom, (int)_paramsAddr["Speed_TSPD_Panel"]), "", "1 - Max_Panels", lang.getLangStr("panel")));
-            dataSpeed.children.Add(genChildData(dataSpeed.paramname, "TSPD_H_Position", getU16ParamString(eeprom, (int)_paramsAddr["Speed_TSPD_H_Position"]), "", "0 - 350", lang.getLangStr("hpos")));
-            dataSpeed.children.Add(genChildData(dataSpeed.paramname, "TSPD_V_Position", getU16ParamString(eeprom, (int)_paramsAddr["Speed_TSPD_V_Position"]), "", "0 - 230", lang.getLangStr("vpos")));
-            dataSpeed.children.Add(genChildData(dataSpeed.paramname, "TSPD_Font_Size", getU16ParamString(eeprom, (int)_paramsAddr["Speed_TSPD_Font_Size"]), "", "0, 1, 2", lang.getLangStr("font")));
-            dataSpeed.children.Add(genChildData(dataSpeed.paramname, "TSPD_H_Alignment", getU16ParamString(eeprom, (int)_paramsAddr["Speed_TSPD_H_Alignment"]), "", "0, 1, 2", lang.getLangStr("halign")));
+            dataSpeed.children.Add(genChildData(dataSpeed.paramname, "Ground_Enable", getU16ParamString(eeprom, (int)_paramsAddr["Speed_Ground_Enable"]), "", "0, 1", lang.getLangStr("Speed_Ground_Enable")));
+            dataSpeed.children.Add(genChildData(dataSpeed.paramname, "Ground_Panel", getU16PanelString(eeprom, (int)_paramsAddr["Speed_Ground_Panel"]), "", "1 - Max_Panels", lang.getLangStr("panel")));
+            dataSpeed.children.Add(genChildData(dataSpeed.paramname, "Ground_H_Position", getU16ParamString(eeprom, (int)_paramsAddr["Speed_Ground_H_Position"]), "", "0 - 350", lang.getLangStr("hpos")));
+            dataSpeed.children.Add(genChildData(dataSpeed.paramname, "Ground_V_Position", getU16ParamString(eeprom, (int)_paramsAddr["Speed_Ground_V_Position"]), "", "0 - 230", lang.getLangStr("vpos")));
+            dataSpeed.children.Add(genChildData(dataSpeed.paramname, "Ground_Font_Size", getU16ParamString(eeprom, (int)_paramsAddr["Speed_Ground_Font_Size"]), "", "0, 1, 2", lang.getLangStr("font")));
+            dataSpeed.children.Add(genChildData(dataSpeed.paramname, "Ground_H_Alignment", getU16ParamString(eeprom, (int)_paramsAddr["Speed_Ground_H_Alignment"]), "", "0, 1, 2", lang.getLangStr("halign")));
+            dataSpeed.children.Add(genChildData(dataSpeed.paramname, "Air_Enable", getU16ParamString(eeprom, (int)_paramsAddr["Speed_Air_Enable"]), "", "0, 1", lang.getLangStr("Speed_Air_Enable")));
+            dataSpeed.children.Add(genChildData(dataSpeed.paramname, "Air_Panel", getU16PanelString(eeprom, (int)_paramsAddr["Speed_Air_Panel"]), "", "1 - Max_Panels", lang.getLangStr("panel")));
+            dataSpeed.children.Add(genChildData(dataSpeed.paramname, "Air_H_Position", getU16ParamString(eeprom, (int)_paramsAddr["Speed_Air_H_Position"]), "", "0 - 350", lang.getLangStr("hpos")));
+            dataSpeed.children.Add(genChildData(dataSpeed.paramname, "Air_V_Position", getU16ParamString(eeprom, (int)_paramsAddr["Speed_Air_V_Position"]), "", "0 - 230", lang.getLangStr("vpos")));
+            dataSpeed.children.Add(genChildData(dataSpeed.paramname, "Air_Font_Size", getU16ParamString(eeprom, (int)_paramsAddr["Speed_Air_Font_Size"]), "", "0, 1, 2", lang.getLangStr("font")));
+            dataSpeed.children.Add(genChildData(dataSpeed.paramname, "Air_H_Alignment", getU16ParamString(eeprom, (int)_paramsAddr["Speed_Air_H_Alignment"]), "", "0, 1, 2", lang.getLangStr("halign")));        
             dataSpeed.children.Add(genChildData(dataSpeed.paramname, "Scale_Enable", getU16ParamString(eeprom, (int)_paramsAddr["Speed_Scale_Enable"]), "", "0, 1", lang.getLangStr("Speed_Scale_Enable")));
+            dataSpeed.children.Add(genChildData(dataSpeed.paramname, "Scale_Type", getU16ParamString(eeprom, (int)_paramsAddr["Speed_Scale_Type"]), "", "0, 1", lang.getLangStr("Speed_Scale_Type")));
             dataSpeed.children.Add(genChildData(dataSpeed.paramname, "Scale_Panel", getU16PanelString(eeprom, (int)_paramsAddr["Speed_Scale_Panel"]), "", "1 - Max_Panels", lang.getLangStr("panel")));
             dataSpeed.children.Add(genChildData(dataSpeed.paramname, "Scale_H_Position", getU16ParamString(eeprom, (int)_paramsAddr["Speed_Scale_H_Position"]), "", "0 - 350", lang.getLangStr("hpos")));
             dataSpeed.children.Add(genChildData(dataSpeed.paramname, "Scale_V_Position", getU16ParamString(eeprom, (int)_paramsAddr["Speed_Scale_V_Position"]), "", "0 - 230", lang.getLangStr("vpos")));
@@ -1630,7 +1682,8 @@ namespace OSD
                 System.Threading.Thread.Sleep(500);
                 comPort.Close();
 
-                short osdver = getU16Param(eeprom, (int)_paramsAddr["Misc_Firmware_ver"]); 
+                short osdver = getU16Param(eeprom, (int)_paramsAddr["Misc_Firmware_ver"]);
+                lab_cur_firmware.Text = "Current Firmware Version:" + Convert.ToString(osdver);
                 if (osdver != firmwareVesion)
                 {
                     MessageBox.Show(lang.getLangStr("Firmware_update"), "Message", MessageBoxButtons.OK, MessageBoxIcon.None);
@@ -2602,30 +2655,56 @@ namespace OSD
                 }
             }
 
-            //Altitude
-            ien = getU16Param(eeprom, (int)_paramsAddr["Altitude_TALT_Enable"]);
-            ipanel = getU16Param(eeprom, (int)_paramsAddr["Altitude_TALT_Panel"]);
+            //Absolute Altitude
+            ien = getU16Param(eeprom, (int)_paramsAddr["Altitude_Absolute_Enable"]);
+            ipanel = getU16Param(eeprom, (int)_paramsAddr["Altitude_Absolute_Panel"]);
             if (bShownAtPanle(ipanel, curPanel) && ien == 1)
             {
-                iposX = getU16Param(eeprom, (int)_paramsAddr["Altitude_TALT_H_Position"]);
-                iposY = getU16Param(eeprom, (int)_paramsAddr["Altitude_TALT_V_Position"]);
-                ifont = getU16Param(eeprom, (int)_paramsAddr["Altitude_TALT_Font_Size"]);
-                ifontalign = getU16Param(eeprom, (int)_paramsAddr["Altitude_TALT_H_Alignment"]);
-                strOffset = ogl.calstring("ALT:10m", font, SIZE_TO_FONT[ifont], whiteBrush, ifontalign);
-                ogl.drawstring("ALT:10m", font, SIZE_TO_FONT[ifont], whiteBrush, iposX - strOffset, iposY);
+                iposX = getU16Param(eeprom, (int)_paramsAddr["Altitude_Absolute_H_Position"]);
+                iposY = getU16Param(eeprom, (int)_paramsAddr["Altitude_Absolute_V_Position"]);
+                ifont = getU16Param(eeprom, (int)_paramsAddr["Altitude_Absolute_Font_Size"]);
+                ifontalign = getU16Param(eeprom, (int)_paramsAddr["Altitude_Absolute_H_Alignment"]);
+                strOffset = ogl.calstring("A-ALT:10m", font, SIZE_TO_FONT[ifont], whiteBrush, ifontalign);
+                ogl.drawstring("A-ALT:10m", font, SIZE_TO_FONT[ifont], whiteBrush, iposX - strOffset, iposY);
             }
 
-            //speed
-            ien = getU16Param(eeprom, (int)_paramsAddr["Speed_TSPD_Enable"]);
-            ipanel = getU16Param(eeprom, (int)_paramsAddr["Speed_TSPD_Panel"]);
+            //Relative Altitude
+            ien = getU16Param(eeprom, (int)_paramsAddr["Altitude_Relative_Enable"]);
+            ipanel = getU16Param(eeprom, (int)_paramsAddr["Altitude_Relative_Panel"]);
             if (bShownAtPanle(ipanel, curPanel) && ien == 1)
             {
-                iposX = getU16Param(eeprom, (int)_paramsAddr["Speed_TSPD_H_Position"]);
-                iposY = getU16Param(eeprom, (int)_paramsAddr["Speed_TSPD_V_Position"]);
-                ifont = getU16Param(eeprom, (int)_paramsAddr["Speed_TSPD_Font_Size"]);
-                ifontalign = getU16Param(eeprom, (int)_paramsAddr["Speed_TSPD_H_Alignment"]);
-                strOffset = ogl.calstring("SPD:5ms", font, SIZE_TO_FONT[ifont], whiteBrush, ifontalign);
-                ogl.drawstring("SPD:5ms", font, SIZE_TO_FONT[ifont], whiteBrush, iposX - strOffset, iposY);
+                iposX = getU16Param(eeprom, (int)_paramsAddr["Altitude_Relative_H_Position"]);
+                iposY = getU16Param(eeprom, (int)_paramsAddr["Altitude_Relative_V_Position"]);
+                ifont = getU16Param(eeprom, (int)_paramsAddr["Altitude_Relative_Font_Size"]);
+                ifontalign = getU16Param(eeprom, (int)_paramsAddr["Altitude_Relative_H_Alignment"]);
+                strOffset = ogl.calstring("R-ALT:100m", font, SIZE_TO_FONT[ifont], whiteBrush, ifontalign);
+                ogl.drawstring("R-ALT:100m", font, SIZE_TO_FONT[ifont], whiteBrush, iposX - strOffset, iposY);
+            }
+
+            //Ground speed
+            ien = getU16Param(eeprom, (int)_paramsAddr["Speed_Ground_Enable"]);
+            ipanel = getU16Param(eeprom, (int)_paramsAddr["Speed_Ground_Panel"]);
+            if (bShownAtPanle(ipanel, curPanel) && ien == 1)
+            {
+                iposX = getU16Param(eeprom, (int)_paramsAddr["Speed_Ground_H_Position"]);
+                iposY = getU16Param(eeprom, (int)_paramsAddr["Speed_Ground_V_Position"]);
+                ifont = getU16Param(eeprom, (int)_paramsAddr["Speed_Ground_Font_Size"]);
+                ifontalign = getU16Param(eeprom, (int)_paramsAddr["Speed_Ground_H_Alignment"]);
+                strOffset = ogl.calstring("G-SPD:5ms", font, SIZE_TO_FONT[ifont], whiteBrush, ifontalign);
+                ogl.drawstring("G-SPD:5ms", font, SIZE_TO_FONT[ifont], whiteBrush, iposX - strOffset, iposY);
+            }
+
+            //Air speed
+            ien = getU16Param(eeprom, (int)_paramsAddr["Speed_Air_Enable"]);
+            ipanel = getU16Param(eeprom, (int)_paramsAddr["Speed_Air_Panel"]);
+            if (bShownAtPanle(ipanel, curPanel) && ien == 1)
+            {
+                iposX = getU16Param(eeprom, (int)_paramsAddr["Speed_Air_H_Position"]);
+                iposY = getU16Param(eeprom, (int)_paramsAddr["Speed_Air_V_Position"]);
+                ifont = getU16Param(eeprom, (int)_paramsAddr["Speed_Air_Font_Size"]);
+                ifontalign = getU16Param(eeprom, (int)_paramsAddr["Speed_Air_H_Alignment"]);
+                strOffset = ogl.calstring("A-SPD:8ms", font, SIZE_TO_FONT[ifont], whiteBrush, ifontalign);
+                ogl.drawstring("A-SPD:8ms", font, SIZE_TO_FONT[ifont], whiteBrush, iposX - strOffset, iposY);
             }
 
             //compass

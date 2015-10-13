@@ -227,11 +227,17 @@ namespace OSD
             _langdspen["Altitude"] = "";
             _langdspzh["Altitude"] = "高度";
 
-            _langdspen["Altitude_TALT_Enable"] = "Traditional hud. 0:disable, 1:enable";
-            _langdspzh["Altitude_TALT_Enable"] = "传统样式. 0:禁用, 1:启用";
+            _langdspen["Altitude_Relative_Enable"] = "Show relative altitude(above ground) in text. 0:disable, 1:enable";
+            _langdspzh["Altitude_Relative_Enable"] = "字符形式相对地的高度. 0:禁用, 1:启用";
 
-            _langdspen["Altitude_Scale_Enable"] = "If show scale bar or not. 0:no, 1:yes";
-            _langdspzh["Altitude_Scale_Enable"] = "是否要显示滚动条. 0:禁用, 1:启用";
+            _langdspen["Altitude_Absolute_Enable"] = "Show absolute altitude(above sea) in text. 0:disable, 1:enable";
+            _langdspzh["Altitude_Absolute_Enable"] = "字符形式海拔高度. 0:禁用, 1:启用";
+
+            _langdspen["Altitude_Scale_Enable"] = "Show altitude scale bar or not. 0:no, 1:yes";
+            _langdspzh["Altitude_Scale_Enable"] = "是否要显示高度滚动条. 0:禁用, 1:启用";
+
+            _langdspen["Altitude_Scale_Type"] = "0:Absolute altitude(above sea)  1:Relative altitude(above ground)";
+            _langdspzh["Altitude_Scale_Type"] = "0:海拔  1:相对于地的高度";
 
             _langdspen["Scale_Align"] = "0:left, 1:right";
             _langdspzh["Scale_Align"] = "0:左 1:右";
@@ -239,11 +245,17 @@ namespace OSD
             _langdspen["Speed"] = "";
             _langdspzh["Speed"] = "速度";
 
-            _langdspen["Speed_TSPD_Enable"] = "Traditional hud. 0:disable, 1:enable";
-            _langdspzh["Speed_TSPD_Enable"] = "传统样式. 0:禁用, 1:启用";
+            _langdspen["Speed_Air_Enable"] = "Show AirSpeed in text. 0:disable, 1:enable";
+            _langdspzh["Speed_Air_Enable"] = "字符形式显示空速. 0:禁用, 1:启用";
 
-            _langdspen["Speed_Scale_Enable"] = "If show scale bar or not. 0:no, 1:yes";
+            _langdspen["Speed_Ground_Enable"] = "Show GroundSpeed in text. 0:disable, 1:enable";
+            _langdspzh["Speed_Ground_Enable"] = "字符形式显示地速. 0:禁用, 1:启用";
+
+            _langdspen["Speed_Scale_Enable"] = "Show speed scale bar or not. 0:no, 1:yes";
             _langdspzh["Speed_Scale_Enable"] = "是否要显示滚动条. 0:禁用, 1:启用";
+
+            _langdspen["Speed_Scale_Type"] = "0:Ground Speed  1:Air Speed";
+            _langdspzh["Speed_Scale_Type"] = "0:地速  1:空速";
 
             _langdspen["Throttle"] = "";
             _langdspzh["Throttle"] = "油门";
