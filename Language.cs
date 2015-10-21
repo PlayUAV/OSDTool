@@ -296,17 +296,20 @@ namespace OSD
             _langdspen["Alarm_Low_Batt_Enable"] = "Alarm when battery low.0:disable, 1:enable";
             _langdspzh["Alarm_Low_Batt_Enable"] = "电量过低报警.0:禁用, 1:启用";
 
-            _langdspen["Alarm_Under_Speed_Enable"] = "Alarm when speed too low.0:disable, 1:enable";
-            _langdspzh["Alarm_Under_Speed_Enable"] = "速度过低报警.0:禁用, 1:启用";
+            _langdspen["Alarm_Under_Speed_Enable"] = "Alarm when speed too low.0:disable, 1:enable.\nThe speed can be GroundSpeed or AirSpeed(Speed_Scale_Type)";
+            _langdspzh["Alarm_Under_Speed_Enable"] = "速度过低报警.0:禁用, 1:启用.\n速度可以是空速或低速(Speed_Scale_Type)";
 
-            _langdspen["Alarm_Over_Speed_Enable"] = "Alarm when speed too high.0:disable, 1:enable";
-            _langdspzh["Alarm_Over_Speed_Enable"] = "速度过高报警.0:禁用, 1:启用";
+            _langdspen["Alarm_Over_Speed_Enable"] = "Alarm when speed too high.0:disable, 1:enable\nThe speed can be GroundSpeed or AirSpeed(Speed_Scale_Type)";
+            _langdspzh["Alarm_Over_Speed_Enable"] = "速度过高报警.0:禁用, 1:启用.\n速度可以是空速或低速(Speed_Scale_Type)";
 
-            _langdspen["Alarm_Under_Alt_Enable"] = "Alarm when altitude too low.0:disable, 1:enable";
-            _langdspzh["Alarm_Under_Alt_Enable"] = "高度过低报警.0:禁用, 1:启用";
+            _langdspen["Alarm_Under_Alt_Enable"] = "Alarm when altitude too low.0:disable, 1:enable\nThe alt can be absolute or relative(Altitude_Scale_Type)";
+            _langdspzh["Alarm_Under_Alt_Enable"] = "高度过低报警.0:禁用, 1:启用\n高度可以是海拔或相对高度(Altitude_Scale_Type)";
 
-            _langdspen["Alarm_Over_Alt_Enable"] = "Alarm when altitude too high.0:disable, 1:enable";
-            _langdspzh["Alarm_Over_Alt_Enable"] = "高度过低报警.0:禁用, 1:启用";
+            _langdspen["Alarm_Over_Alt_Enable"] = "Alarm when altitude too high.0:disable, 1:enable\nThe alt can be absolute or relative(Altitude_Scale_Type)";
+            _langdspzh["Alarm_Over_Alt_Enable"] = "高度过低报警.0:禁用, 1:启用\n高度可以是海拔或相对高度(Altitude_Scale_Type)";
+
+            _langdspen["Alarm_Speed_Unit"] = "Imperial:Mile/H Metric:KM/H";
+            _langdspzh["Alarm_Speed_Unit"] = "英制:英里每小时 公制:千米每小时";
 
             _langdspen["ClimbRate"] = "vertical speed";
             _langdspzh["ClimbRate"] = "爬升率，即垂直速度";
@@ -344,11 +347,11 @@ namespace OSD
             _langdspen["Throttle_Scale_Type"] = "0:Vertical, 1:Horizontal";
             _langdspzh["Throttle_Scale_Type"] = "0:垂直, 1:水平";
 
-            _langdspen["Misc_Start_Row"] = "Sometimes you will find the item doesn't show on the screen when the x is zero. Try to set a offset value.";
-            _langdspzh["Misc_Start_Row"] = "假设你打算把项目显示在第0行，却发现屏幕上没有，增加一些行才显示在屏幕的最上方，这是由于不同摄像头和屏幕造成的，可以设置一个偏移量";
+            _langdspen["Misc_Start_Row"] = "Sometimes you will find the item doesn't show on the top of screen when the y is zero. Try to set a offset value.";
+            _langdspzh["Misc_Start_Row"] = "假设你打算把项目显示在第0行，却发现屏幕上没有，增加一些列才显示在屏幕的最上边，这是由于不同摄像头和屏幕造成的，可以设置一个偏移量";
 
-            _langdspen["Misc_Start_Col"] = "Please refer to Start_Row";
-            _langdspzh["Misc_Start_Col"] = "参考上面的行偏移";
+            _langdspen["Misc_Start_Col"] = "Sometimes you will find the item doesn't show on the left of screen when the x is zero. Try to set a offset value.";
+            _langdspzh["Misc_Start_Col"] = "假设你打算把项目显示在第0列，却发现屏幕上没有，增加一些列才显示在屏幕的最左边，这是由于不同摄像头和屏幕造成的，可以设置一个偏移量";
 
             _langdspen["Attitude_Scale"] = "The attitude display scale factor. You can set like 1.2, 0.8, 2.0 and etc.";
             _langdspzh["Attitude_Scale"] = "姿态显示部分的缩放。默认是没缩放。可以设置成浮点数，比如1.2就是放大1.2倍。0.8就是缩小";

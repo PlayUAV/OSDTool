@@ -35,9 +35,9 @@ namespace OSD
         byte[] paramdefault = new byte[1024];
 
         PlayuavOSD self;
-        string currentVersion = "1.0.1.3";
+        string currentVersion = "1.0.1.4";
         bool bCheckUpdateStartup = false;
-        short firmwareVesion = 9;
+        short firmwareVesion = 10;
 
         // Changes made to the params between writing to the copter
         readonly Hashtable _changes = new Hashtable();
@@ -1085,6 +1085,15 @@ namespace OSD
             //0:ground speed 1:air speed
             _paramsAddr["Speed_Scale_Type"] = address; address += 2;
             u16toEPPROM(paramdefault, (int)_paramsAddr["Speed_Scale_Type"], 0);
+
+            //v1.1.0
+            // sign of start col. 1:positive 0:negative
+            _paramsAddr["Misc_Start_Col_Sign"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Misc_Start_Col_Sign"], 1);
+
+            //1:4800、2:9600、3:19200、4:38400、5:43000、6:56000、7:57600、8:115200
+            _paramsAddr["Misc_USART_BandRate"] = address; address += 2;
+            u16toEPPROM(paramdefault, (int)_paramsAddr["Misc_USART_BandRate"], 7); 
         }
 
         internal PlayuavOSD.data genChildData(string root, string name, string value, string unit, string range, string desc)
@@ -1150,9 +1159,22 @@ namespace OSD
             dataMisc.desc = lang.getLangStr("Misc");
             dataMisc.children.Add(genChildData(dataMisc.paramname, "Units_Mode", getU16ParamString(eeprom, (int)_paramsAddr["Misc_Units_Mode"]), "", "0, 1", lang.getLangStr("Misc_Units_Mode")));
             dataMisc.children.Add(genChildData(dataMisc.paramname, "Max_Panels", getU16ParamString(eeprom, (int)_paramsAddr["Misc_Max_Panels"]), "", ">=1", lang.getLangStr("Misc_Max_Panels")));
-            dataMisc.children.Add(genChildData(dataMisc.paramname, "Start_Row", getU16ParamString(eeprom, (int)_paramsAddr["Misc_Start_Row"]), "", "-20 - +20", lang.getLangStr("Misc_Start_Row")));
-            dataMisc.children.Add(genChildData(dataMisc.paramname, "Start_Col", getU16ParamString(eeprom, (int)_paramsAddr["Misc_Start_Col"]), "", "-20 - +20", lang.getLangStr("Misc_Start_Col")));
+            dataMisc.children.Add(genChildData(dataMisc.paramname, "Start_Row", getU16ParamString(eeprom, (int)_paramsAddr["Misc_Start_Row"]), "", "0 - +20", lang.getLangStr("Misc_Start_Row")));
+            string str_start_shown = "";
+            int start_sign = 0;
+            start_sign = getU16Param(eeprom, (int)_paramsAddr["Misc_Start_Col_Sign"]);
+            if (start_sign == 1)
+            {
+                //positive
+                str_start_shown = getU16ParamString(eeprom, (int)_paramsAddr["Misc_Start_Col"]);
+            }
+            else
+            {
+                str_start_shown = "-" + getU16ParamString(eeprom, (int)_paramsAddr["Misc_Start_Col"]);
+            }
+            dataMisc.children.Add(genChildData(dataMisc.paramname, "Start_Col", str_start_shown, "", "-20 - +20", lang.getLangStr("Misc_Start_Col")));
             dataMisc.children.Add(genChildData(dataMisc.paramname, "Video_Mode", getU16ParamString(eeprom, (int)_paramsAddr["Misc_Video_Mode"]), "", "0, 1", lang.getLangStr("Misc_Video_Mode")));
+            dataMisc.children.Add(genChildData(dataMisc.paramname, "USART_BandRate", getU16ParamString(eeprom, (int)_paramsAddr["Misc_USART_BandRate"]), "", "1-8", "1:4800 2:9600 3:19200 4:38400 5:43000 6:56000 7:57600 8:115200"));
             roots.Add(dataMisc);
 
             data dataPWM = new PlayuavOSD.data();
@@ -1449,13 +1471,13 @@ namespace OSD
             dataAlarm.children.Add(genChildData(dataAlarm.paramname, "Low_Batt_Enable", getU16ParamString(eeprom, (int)_paramsAddr["Alarm_Low_Batt_Enable"]), "", "0, 1", lang.getLangStr("Alarm_Low_Batt_Enable")));
             dataAlarm.children.Add(genChildData(dataAlarm.paramname, "Low_Batt", getU16ParamString(eeprom, (int)_paramsAddr["Alarm_Low_Batt"]), "", "0 - 99", lang.getLangStr("alarmval")));
             dataAlarm.children.Add(genChildData(dataAlarm.paramname, "Under_Speed_Enable", getU16ParamString(eeprom, (int)_paramsAddr["Alarm_Under_Speed_Enable"]), "", "0, 1", lang.getLangStr("Alarm_Under_Speed_Enable")));
-            dataAlarm.children.Add(genChildData(dataAlarm.paramname, "Under_Speed", getU16ParamString(eeprom, (int)_paramsAddr["Alarm_Under_Speed"]), "", "", lang.getLangStr("alarmval")));
+            dataAlarm.children.Add(genChildData(dataAlarm.paramname, "Under_Speed", getU16ParamString(eeprom, (int)_paramsAddr["Alarm_Under_Speed"]), lang.getLangStr("Alarm_Speed_Unit"), "", lang.getLangStr("alarmval")));
             dataAlarm.children.Add(genChildData(dataAlarm.paramname, "Over_Speed_Enable", getU16ParamString(eeprom, (int)_paramsAddr["Alarm_Over_Speed_Enable"]), "", "0, 1", lang.getLangStr("Alarm_Over_Speed_Enable")));
-            dataAlarm.children.Add(genChildData(dataAlarm.paramname, "Over_Speed", getU16ParamString(eeprom, (int)_paramsAddr["Alarm_Over_Speed"]), "", "", lang.getLangStr("alarmval")));
+            dataAlarm.children.Add(genChildData(dataAlarm.paramname, "Over_Speed", getU16ParamString(eeprom, (int)_paramsAddr["Alarm_Over_Speed"]), lang.getLangStr("Alarm_Speed_Unit"), "", lang.getLangStr("alarmval")));
             dataAlarm.children.Add(genChildData(dataAlarm.paramname, "Under_Alt_Enable", getU16ParamString(eeprom, (int)_paramsAddr["Alarm_Under_Alt_Enable"]), "", "0, 1", lang.getLangStr("Alarm_Under_Alt_Enable")));
-            dataAlarm.children.Add(genChildData(dataAlarm.paramname, "Under_Alt", getU16ParamString(eeprom, (int)_paramsAddr["Alarm_Under_Alt"]), "", "", lang.getLangStr("alarmval")));
+            dataAlarm.children.Add(genChildData(dataAlarm.paramname, "Under_Alt", getU16ParamString(eeprom, (int)_paramsAddr["Alarm_Under_Alt"]), "Meter", "", lang.getLangStr("alarmval")));
             dataAlarm.children.Add(genChildData(dataAlarm.paramname, "Over_Alt_Enable", getU16ParamString(eeprom, (int)_paramsAddr["Alarm_Over_Alt_Enable"]), "", "0, 1", lang.getLangStr("Alarm_Over_Alt_Enable")));
-            dataAlarm.children.Add(genChildData(dataAlarm.paramname, "Over_Alt", getU16ParamString(eeprom, (int)_paramsAddr["Alarm_Over_Alt"]), "", "", lang.getLangStr("alarmval")));
+            dataAlarm.children.Add(genChildData(dataAlarm.paramname, "Over_Alt", getU16ParamString(eeprom, (int)_paramsAddr["Alarm_Over_Alt"]), "Meter", "", lang.getLangStr("alarmval")));
             roots.Add(dataAlarm);
 
             data dataClimb = new PlayuavOSD.data();
@@ -1588,6 +1610,7 @@ namespace OSD
                     //_changes[((data)e.RowObject).paramname] = newvalue;
                     _changes[paramsfullname] = newvalue;
 
+                    
                     if (paramsfullname.Contains("Attitude_") && paramsfullname.Contains("_Scale"))
                     {
                         //this is size scale, divide into two parts for storing
@@ -1598,6 +1621,19 @@ namespace OSD
                         temp = Convert.ToInt16(newvalue*100);
                         u16toEPPROM(eeprom, (int)_paramsAddr[paramsfullname + "_Frac"], temp);
                     }
+                    else if (paramsfullname.Contains("Misc_Start_Row"))
+                    {
+                        if (newvalue > 0)
+                        {
+                            u16toEPPROM(eeprom, (int)_paramsAddr["Misc_Start_Row"], Convert.ToInt16(newvalue));
+                        }
+                    }
+                    else if (paramsfullname.Contains("Misc_Start_Col"))
+                    {
+                        u16toEPPROM(eeprom, (int)_paramsAddr["Misc_Start_Col"], Convert.ToInt16(Math.Abs(newvalue)));
+                        int row_sign = (newvalue < 0) ? 0 : 1;
+                        u16toEPPROM(eeprom, (int)_paramsAddr["Misc_Start_Col_Sign"], Convert.ToInt16(row_sign));
+                    }
                     else
                     {
                         u16toEPPROM(eeprom, (int)_paramsAddr[paramsfullname], Convert.ToInt16(newvalue));
@@ -1606,6 +1642,15 @@ namespace OSD
 
                     ((data)e.RowObject).Value = e.NewValue.ToString();
 
+                    if (paramsfullname.Contains("Misc_Start_Row"))
+                    {
+                        if (newvalue < 0)
+                        {
+                            MessageBox.Show("The value of start row must above 0.\n Because we transfer telemetry data using VBI. The negative value may cause unexcept error!", "Message", MessageBoxButtons.OK, MessageBoxIcon.None);
+                            ((data)e.RowObject).Value = "0";
+                            u16toEPPROM(eeprom, (int)_paramsAddr["Misc_Start_Row"], Convert.ToInt16(0));
+                        }
+                    }
                     var typer = e.RowObject.GetType();
 
                     e.Cancel = true;
