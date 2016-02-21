@@ -101,7 +101,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Web" />
@@ -146,7 +145,7 @@
     <Compile Include="MyProgressBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="MyProgressBar.designer.cs">
+    <Compile Include="MyProgressBar.Designer.cs">
       <DependentUpon>MyProgressBar.cs</DependentUpon>
     </Compile>
     <Compile Include="oglUtility.cs" />
@@ -174,7 +173,7 @@
     <Compile Include="UpdateAvailable.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UpdateAvailable.designer.cs">
+    <Compile Include="UpdateAvailable.Designer.cs">
       <DependentUpon>UpdateAvailable.cs</DependentUpon>
     </Compile>
     <Compile Include="Updater.cs" />
@@ -253,7 +252,7 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
