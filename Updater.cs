@@ -12,7 +12,7 @@ namespace OSD
         static string webUrl = "http://www.playuav.com/download/PlayuavOSD/";
 
         public static bool NewVersionExists(string currentVersion)
-        { 
+        {
             string latestStableCTToolVersion = "";
             try
             {
@@ -20,7 +20,7 @@ namespace OSD
 
                 if (!Directory.Exists(localFwDir))
                     Directory.CreateDirectory(localFwDir);
-                
+
 
                 DownloadFile(webUrl + "POSDStabVer.txt", localFwDir + "POSDLastToolVer.txt");
 
@@ -61,7 +61,7 @@ namespace OSD
                 if (request != null)
                 {
                     // Send the request to the server and retrieve the
-                    // WebResponse object 
+                    // WebResponse object
                     response = request.GetResponse();
                     if (response != null)
                     {
@@ -98,7 +98,7 @@ namespace OSD
             }
             finally
             {
-                // Close the response and streams objects here 
+                // Close the response and streams objects here
                 // to make sure they're closed even if an exception
                 // is thrown at some point
                 if (response != null) response.Close();
